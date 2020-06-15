@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Task Manager Monitor" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <!--<ColumnDefinition Width="auto"/>-->
+            
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <!--<RowDefinition Height="auto" />-->
+            
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+        </Grid.RowDefinitions>
         
+
+        <ListView Grid.Column="1" Grid.Row="1"
+                  Background="DarkGray"
+                  Margin="2" 
+                  Name="statsSource"
+                  >
+            <ListView.View>
+                
+                <GridView>
+                    <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Note" Width="100" DisplayMemberBinding="{Binding Note}"/>
+                    <GridViewColumn Header="CPU" Width="60" DisplayMemberBinding="{Binding CPU}"/>
+                    <GridViewColumn Header="Memory" Width="100" DisplayMemberBinding="{Binding Memory}"/>
+                    <GridViewColumn Header="Start Time" Width="60" DisplayMemberBinding="{Binding Started}"/>
+                    <GridViewColumn Header="Thread" Width="100" DisplayMemberBinding="{Binding Thread}"/>
+                    
+                </GridView>
+                
+                
+            </ListView.View>
+            
+        </ListView>
+
     </Grid>
 </Window>
