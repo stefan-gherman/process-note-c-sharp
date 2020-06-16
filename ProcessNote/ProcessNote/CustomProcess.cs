@@ -16,4 +16,6 @@ namespace ProcessNote
         public string Started { get; set; }
         public int Thread { get; set; }
     }
+
+
 }

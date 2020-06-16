@@ -34,16 +34,20 @@ namespace ProcessNote
             set { sortMethod = value; }
         }
 
+        public Dictionary<int, int> History = new Dictionary<int, int>();
+
 
         private DispatcherTimer _timer;
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
+            History.Clear();
             List<CustomProcess> stats = new List<CustomProcess>();
             sortMethod = "CPUDescending";
             Console.WriteLine("sortMethod set to: " + sortMethod);
-            stats = populateStats();
+            //stats = populateStats();
+            populateStats();
                         
             statsSource.ItemsSource = stats;
         }
@@ -54,16 +58,12 @@ namespace ProcessNote
 
             stats = populateStats();
 
-            
-            //statsSource.ItemsSource = stats;
             statsSource.ItemsSource = Sorter.SortProcesses(stats, sortMethod);
         }
 
         List<CustomProcess> populateStats()
         {
-            List<CustomProcess> result = new List<CustomProcess>();
-            Dictionary<int, int> history = new Dictionary<int, int>();
-            
+            List<CustomProcess> result = new List<CustomProcess>();            
             Process[] remoteAll = Process.GetProcesses();
             foreach (var item in remoteAll)
             {
@@ -78,7 +78,7 @@ namespace ProcessNote
                 }
                 catch (Exception e)
                 {
-                    if (history.Count() <= 0)
+                    if (History.Count() <= 0)
                     {
                         Random randomPercent = new Random();
                         cpu = randomPercent.Next(5, 17);
@@ -88,7 +88,7 @@ namespace ProcessNote
                         Random randomPositiveNegative = new Random();
                         var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
                         int randomPercent = values[randomPositiveNegative.Next(values.Length)];
-                        cpu = findPreviousCPUValue(history, id) + randomPercent;
+                        cpu = findPreviousCPUValue(History, id) + randomPercent;
                     }
                     
                 }
@@ -102,7 +102,7 @@ namespace ProcessNote
                 }
                 catch (Exception e)
                 {
-                    startTime = "6/15/2020 8:45:41 PM";
+                    startTime = "6/15/2020 8:45:61 PM";
                 }
 
                 int thread = Convert.ToInt32(item.Threads.Count);
@@ -111,8 +111,7 @@ namespace ProcessNote
                 
                 
             }
-            history.Clear();
-            history = populateHistory(result);
+            History = populateHistory(result);
 
 
             return result;
@@ -132,17 +131,15 @@ namespace ProcessNote
         private int findPreviousCPUValue(Dictionary<int, int> history, int id)
         {
             int tempResult = 0;
-
             try
             {
                 tempResult = history[id];
-                Console.WriteLine("value history found" + tempResult);
+                //Console.WriteLine("value history found" + tempResult);
             }
             catch (Exception e)
             {
                 tempResult = 0;
-            }
-            
+            }           
             return tempResult;
         }
 
