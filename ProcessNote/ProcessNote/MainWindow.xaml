@@ -69,9 +69,29 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <!--<GridViewColumn Header="Note" Width="100" DisplayMemberBinding="{Binding Note}"/>-->
-                    <GridViewColumn Header="CPU" Width="60" DisplayMemberBinding="{Binding CPU}"/>
-                    <GridViewColumn Header="Memory" Width="100" DisplayMemberBinding="{Binding Memory}"/>
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding CPU}" 
+                      Width="60">
+                        <GridViewColumnHeader Click="CPU_Click">CPU
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    
+                    <!--<GridViewColumn Header="Memory" Width="100" DisplayMemberBinding="{Binding Memory}"/>-->
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Memory}" 
+                      Width="100">
+                        <GridViewColumnHeader Click="Memory_Click">Memory
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    
                     <GridViewColumn Header="Start Time" Width="160" DisplayMemberBinding="{Binding Started}"/>
                     <GridViewColumn Header="Thread" Width="100" DisplayMemberBinding="{Binding Thread}"/>
                 </GridView>

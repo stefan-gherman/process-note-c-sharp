@@ -78,6 +78,22 @@ namespace ProcessNote
             {
                 stats.Sort((x, y) => y.Note.CompareTo(x.Note));
             }
+            else if (sortMethod.Equals("CPUAscending"))
+            {
+                stats.Sort((x, y) => x.CPU.CompareTo(y.CPU));
+            }
+            else if (sortMethod.Equals("CPUDescending"))
+            {
+                stats.Sort((x, y) => y.CPU.CompareTo(x.CPU));
+            }
+            else if (sortMethod.Equals("MemoryAscending"))
+            {
+                stats.Sort((x, y) => x.Memory.CompareTo(y.Memory));
+            }
+            else if (sortMethod.Equals("MemoryDescending"))
+            {
+                stats.Sort((x, y) => y.Memory.CompareTo(x.Memory));
+            }
             else
             {
                 stats.Sort((x, y) => y.CPU.CompareTo(x.CPU));
@@ -222,6 +238,36 @@ namespace ProcessNote
             else
             {
                 sortMethod = "NoteAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void CPU_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("CPU Header clicked.");
+            if (sortMethod.Equals("CPUAscending"))
+            {
+                sortMethod = "CPUDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "CPUAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Memory_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Memory Header clicked.");
+            if (sortMethod.Equals("MemoryAscending"))
+            {
+                sortMethod = "MemoryDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "MemoryAscending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }
