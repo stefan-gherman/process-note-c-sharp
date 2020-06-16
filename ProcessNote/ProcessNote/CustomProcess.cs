@@ -20,6 +20,7 @@ namespace ProcessNote
         public string Started { get; set; }
         public int Thread { get; set; }
         public static Dictionary<int, int> History = new Dictionary<int, int>();
+        public static Dictionary<int, string> Notes = new Dictionary<int, string>();
 
         public static List<CustomProcess> PopulateStats()
         {
@@ -29,7 +30,7 @@ namespace ProcessNote
             {
                 int id = item.Id;
                 string name = item.ProcessName;
-                string note = "...";
+                string note = verifyNote(id);
                 // CPU custom generation process
                 int cpu = 0;
                 try
@@ -75,6 +76,20 @@ namespace ProcessNote
 
 
             return result;
+        }
+
+        private static string verifyNote(int id)
+        {
+            string note = "...";
+            try
+            {
+                note = Notes[id];
+            }
+            catch(Exception exa)
+            {
+
+            }
+            return note;
         }
 
         private static Dictionary<int, int> populateHistory(List<CustomProcess> result)
