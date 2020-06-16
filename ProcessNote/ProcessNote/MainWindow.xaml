@@ -13,7 +13,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Task Manager Monitor" Height="450" Width="800">
+        Title="Task Manager Monitor" Height="450" Width="800" Loaded="Window_Loaded_1">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
@@ -44,7 +44,7 @@
                     <GridViewColumn Header="Note" Width="100" DisplayMemberBinding="{Binding Note}"/>
                     <GridViewColumn Header="CPU" Width="60" DisplayMemberBinding="{Binding CPU}"/>
                     <GridViewColumn Header="Memory" Width="100" DisplayMemberBinding="{Binding Memory}"/>
-                    <GridViewColumn Header="Start Time" Width="60" DisplayMemberBinding="{Binding Started}"/>
+                    <GridViewColumn Header="Start Time" Width="160" DisplayMemberBinding="{Binding Started}"/>
                     <GridViewColumn Header="Thread" Width="100" DisplayMemberBinding="{Binding Thread}"/>
                     
                 </GridView>
