@@ -30,6 +30,7 @@ namespace ProcessNote
         public MainWindow()
         {
             DataContext = this;
+            this.Topmost = false;
             InitializeComponent();
             List<CustomProcess> stats = new List<CustomProcess>();
 
