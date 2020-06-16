@@ -64,7 +64,7 @@ namespace ProcessNote
         {
             List<CustomProcess> result = new List<CustomProcess>();
 
-            Process[] remoteAll = Process.GetProcesses("potato345");
+            Process[] remoteAll = Process.GetProcesses();
             foreach (var item in remoteAll)
             {
                 int id = item.Id;
@@ -105,7 +105,7 @@ namespace ProcessNote
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 1);
+            _timer.Interval = new TimeSpan(0, 0, 5);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
