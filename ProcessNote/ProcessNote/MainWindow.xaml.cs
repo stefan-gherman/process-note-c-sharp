@@ -42,15 +42,19 @@ namespace ProcessNote
             List<CustomProcess> stats = new List<CustomProcess>();
             sortMethod = "CPUDescending";
             Console.WriteLine("sortMethod set to: " + sortMethod);
-            stats = CustomProcess.PopulateStats();
-            statsSource.ItemsSource = stats;
+            //stats = CustomProcess.PopulateStats();
+            //await CustomProcess.PopulateStats();
+            //statsSource.ItemsSource = stats;
+            statsSource.ItemsSource = CustomProcess.Stats;
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private async void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             List<CustomProcess> stats = new List<CustomProcess>();
-            stats = CustomProcess.PopulateStats();
-            statsSource.ItemsSource = Sorter.SortProcesses(stats, sortMethod);
+            //stats = CustomProcess.PopulateStats();
+            await CustomProcess.PopulateStats();
+            //statsSource.ItemsSource = Sorter.SortProcesses(stats, sortMethod);
+            statsSource.ItemsSource = Sorter.SortProcesses(CustomProcess.Stats, sortMethod);
         }
 
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
