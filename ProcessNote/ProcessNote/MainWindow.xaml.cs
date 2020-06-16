@@ -1,23 +1,11 @@
-﻿using System;
+﻿using ProcessNote.Views;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Threading;
-
 
 namespace ProcessNote
 {
@@ -27,18 +15,16 @@ namespace ProcessNote
     public partial class MainWindow : Window
     {
         private DispatcherTimer _timer;
+
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
             List<CustomProcess> stats = new List<CustomProcess>();
 
-             
             stats = populateStats();
             stats.Sort((x, y) => y.Memory.CompareTo(x.Memory));
             statsSource.ItemsSource = stats;
-                        
-
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -60,11 +46,11 @@ namespace ProcessNote
         //    _timer.Start();
         //}
 
-        List<CustomProcess> populateStats()
+        private List<CustomProcess> populateStats()
         {
             List<CustomProcess> result = new List<CustomProcess>();
 
-            Process[] remoteAll = Process.GetProcesses("potato345");
+            Process[] remoteAll = Process.GetProcesses();
             foreach (var item in remoteAll)
             {
                 int id = item.Id;
@@ -95,9 +81,8 @@ namespace ProcessNote
 
                 int thread = Convert.ToInt32(item.Threads.Count);
 
-                result.Add( new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread} );
+                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });
             }
-
 
             return result;
         }
@@ -105,15 +90,29 @@ namespace ProcessNote
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 1);
+            _timer.Interval = new TimeSpan(0, 0, 5);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
+        }
+
+        private void ShowThreads_Click(object sender, RoutedEventArgs e)
+        {
+            var processId = GetProcessOnMenuClick(sender).ID;
+            ThreadsWindow window = new ThreadsWindow(processId);
+            window.Show();
+        }
+
+        private CustomProcess GetProcessOnMenuClick(object sender)
+        {
+            var menuItem = (MenuItem)sender;
+            var contextMenu = (ContextMenu)menuItem.Parent;
+            var item = (ListView)contextMenu.PlacementTarget;
+            return (CustomProcess)item.SelectedItem;
         }
     }
 
     public class CustomProcess
     {
-        
         public int ID { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }
@@ -122,6 +121,4 @@ namespace ProcessNote
         public string Started { get; set; }
         public int Thread { get; set; }
     }
-
-    
 }
