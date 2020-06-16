@@ -115,8 +115,30 @@
                 </GridView>
 
             </ListView.View>
-            
+      
+      <!--  Right click menu  -->
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Click="ShowThreads_Click"
+                        FontSize="13"
+                        Header="Show Threads" />
+                    <Separator />
+                    <MenuItem FontSize="13" Header="Add Comment" />
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
+
+        <CheckBox
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="Auto"
+            Margin="0,0.2,41.8,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="CheckBox_Click"
+            Content="Always on Top"
+            FontSize="10" />
 
     </Grid>
 </Window>

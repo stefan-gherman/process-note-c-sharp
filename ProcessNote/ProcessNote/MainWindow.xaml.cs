@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -256,6 +256,26 @@ namespace ProcessNote
                 sortMethod = "ThreadAscending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
+        }
+        
+        private void ShowThreads_Click(object sender, RoutedEventArgs e)
+        {
+            var processId = GetProcessOnMenuClick(sender).ID;
+            ThreadsWindow window = new ThreadsWindow(processId);
+            window.Show();
+        }
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = this.Topmost ? false : true;
+        }
+
+        private CustomProcess GetProcessOnMenuClick(object sender)
+        {
+            var menuItem = (MenuItem)sender;
+            var contextMenu = (ContextMenu)menuItem.Parent;
+            var item = (ListView)contextMenu.PlacementTarget;
+            return (CustomProcess)item.SelectedItem;
         }
     }
 
