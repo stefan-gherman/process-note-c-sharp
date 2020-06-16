@@ -261,9 +261,17 @@ namespace ProcessNote
         
         private void ShowThreads_Click(object sender, RoutedEventArgs e)
         {
-            var processId = GetProcessOnMenuClick(sender).ID;
-            ThreadsWindow window = new ThreadsWindow(processId);
-            window.Show();
+            try 
+            { 
+                var processId = GetProcessOnMenuClick(sender).ID;
+                ThreadsWindow window = new ThreadsWindow(processId);
+                window.Show();
+            }
+            catch (Exception exy)
+            {
+
+            }
+            
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
