@@ -101,10 +101,10 @@ namespace ProcessNote
             ThreadsWindow window = new ThreadsWindow(processId);
             window.Show();
         }
-        
+
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
-           this.Topmost = this.Topmost ? false : true;
+            this.Topmost = this.Topmost ? false : true;
         }
 
         private CustomProcess GetProcessOnMenuClick(object sender)
