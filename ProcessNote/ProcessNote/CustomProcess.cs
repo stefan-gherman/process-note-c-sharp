@@ -19,13 +19,14 @@ namespace ProcessNote
         public int Memory { get; set; }
         public string Started { get; set; }
         public int Thread { get; set; }
+        public static List<CustomProcess> Stats { get; set; }
         public static Dictionary<int, int> History = new Dictionary<int, int>();
         public static Dictionary<int, string> Notes = new Dictionary<int, string>();
 
-        public static List<CustomProcess> PopulateStats()
+        public static async Task PopulateStats()
         {
             List<CustomProcess> result = new List<CustomProcess>();
-            Process[] remoteAll = Process.GetProcesses();
+            Process[] remoteAll = await Task.Run(() => Process.GetProcesses());
             foreach (var item in remoteAll)
             {
                 int id = item.Id;
@@ -72,10 +73,11 @@ namespace ProcessNote
 
 
             }
+            Stats = result;
             History = populateHistory(result);
 
 
-            return result;
+            //return result;
         }
 
         private static string verifyNote(int id)
