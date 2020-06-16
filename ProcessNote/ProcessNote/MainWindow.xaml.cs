@@ -53,8 +53,16 @@ namespace ProcessNote
             List<CustomProcess> stats = new List<CustomProcess>();
 
             stats = populateStats();
-            
-            if (sortMethod.Equals("alphabeticalAscending"))
+
+            if (sortMethod.Equals("IDAscending"))
+            {
+                stats.Sort((x, y) => x.ID.CompareTo(y.ID));
+            }
+            else if (sortMethod.Equals("IDDescending"))
+            {
+                stats.Sort((x, y) => y.ID.CompareTo(x.ID));
+            }
+            else if (sortMethod.Equals("alphabeticalAscending"))
             {
                 stats.Sort((x, y) => x.Name.CompareTo(y.Name));
             }
@@ -69,16 +77,6 @@ namespace ProcessNote
             
             statsSource.ItemsSource = stats;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    _timer = new DispatcherTimer();
-        //    _timer.Interval = new TimeSpan(0, 0, 1);
-        //    _timer.Tick += new EventHandler(dispatcherTimer_Tick);
-        //    _timer.Start();
-        //}
 
         List<CustomProcess> populateStats()
         {
@@ -186,6 +184,21 @@ namespace ProcessNote
             else
             {
                 sortMethod = "alphabeticalAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void ID_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("ID Header clicked.");
+            if (sortMethod.Equals("IDAscending"))
+            {
+                sortMethod = "IDDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "IDAscending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }

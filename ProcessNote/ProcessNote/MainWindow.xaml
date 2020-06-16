@@ -39,18 +39,23 @@
             <ListView.View>
 
                 <GridView AllowsColumnReorder="true">
-                    <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding ID}"/>
-                    <!--<GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>-->
+                    <!--<GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding ID}"/>-->
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding ID}" 
+                      Width="60">
+                        <GridViewColumnHeader Click="ID_Click">ID
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
                     <GridViewColumn DisplayMemberBinding=
                           "{Binding Name}" 
                       Width="150">
                         <GridViewColumnHeader Click="Name_Click">Name
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu>
-                                    <!--MenuItem.Click="LastNameCM_Click"-->  
-                                        <!--Name="LastNameCM">-->
-                                    <!--<MenuItem Header="Ascending" />-->
-                                    <!--<MenuItem Header="Descending" />-->
                                 </ContextMenu>
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
