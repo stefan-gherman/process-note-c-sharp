@@ -66,6 +66,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CustomProcess.cs" />
+    <Compile Include="Sorter.cs" />
     <Compile Include="Views\ThreadsWindow.xaml.cs">
       <DependentUpon>ThreadsWindow.xaml</DependentUpon>
     </Compile>
@@ -111,7 +113,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -134,7 +136,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
+  </ItemGroup>-->
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>

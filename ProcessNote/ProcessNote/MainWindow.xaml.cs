@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
+using ProcessNote.Views;
 
 namespace ProcessNote
 {
