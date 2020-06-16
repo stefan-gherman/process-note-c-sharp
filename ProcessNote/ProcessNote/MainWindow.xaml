@@ -90,7 +90,7 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
                     
-                    <!--<GridViewColumn Header="Start Time" Width="160" DisplayMemberBinding="{Binding Started}"/>-->
+                    
                     <GridViewColumn DisplayMemberBinding=
                           "{Binding Started}" 
                       Width="160">
@@ -101,9 +101,17 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    
-                    
-                    <GridViewColumn Header="Thread" Width="100" DisplayMemberBinding="{Binding Thread}"/>
+
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Thread}" 
+                      Width="100">
+                        <GridViewColumnHeader Click="Thread_Click">Thread
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
                 </GridView>
 
             </ListView.View>

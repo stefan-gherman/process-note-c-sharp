@@ -102,6 +102,14 @@ namespace ProcessNote
             {
                 stats.Sort((x, y) => y.Started.CompareTo(x.Started));
             }
+            else if (sortMethod.Equals("ThreadAscending"))
+            {
+                stats.Sort((x, y) => x.Thread.CompareTo(y.Thread));
+            }
+            else if (sortMethod.Equals("ThreadDescending"))
+            {
+                stats.Sort((x, y) => y.Thread.CompareTo(x.Thread));
+            }
             else
             {
                 stats.Sort((x, y) => y.CPU.CompareTo(x.CPU));
@@ -291,6 +299,21 @@ namespace ProcessNote
             else
             {
                 sortMethod = "StartedAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Thread_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Thread Header clicked.");
+            if (sortMethod.Equals("ThreadAscending"))
+            {
+                sortMethod = "ThreadDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "ThreadAscending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }
