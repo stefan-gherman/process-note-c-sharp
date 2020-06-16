@@ -62,13 +62,21 @@ namespace ProcessNote
             {
                 stats.Sort((x, y) => y.ID.CompareTo(x.ID));
             }
-            else if (sortMethod.Equals("alphabeticalAscending"))
+            else if (sortMethod.Equals("NameAscending"))
             {
                 stats.Sort((x, y) => x.Name.CompareTo(y.Name));
             }
-            else if (sortMethod.Equals("alphabeticalDescending"))
+            else if (sortMethod.Equals("NameDescending"))
             {
                 stats.Sort((x, y) => y.Name.CompareTo(x.Name));
+            }
+            else if (sortMethod.Equals("NoteAscending"))
+            {
+                stats.Sort((x, y) => x.Note.CompareTo(y.Note));
+            }
+            else if (sortMethod.Equals("NoteDescending"))
+            {
+                stats.Sort((x, y) => y.Note.CompareTo(x.Note));
             }
             else
             {
@@ -176,14 +184,14 @@ namespace ProcessNote
         private void Name_Click(object sender, RoutedEventArgs e)
         {
             Console.WriteLine("Name Header clicked.");
-            if (sortMethod.Equals("alphabeticalAscending"))
+            if (sortMethod.Equals("NameAscending"))
             {
-                sortMethod = "alphabeticalDescending";
+                sortMethod = "NameDescending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
             else
             {
-                sortMethod = "alphabeticalAscending";
+                sortMethod = "NameAscending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }
@@ -199,6 +207,21 @@ namespace ProcessNote
             else
             {
                 sortMethod = "IDAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Note_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Note Header clicked.");
+            if (sortMethod.Equals("NoteAscending"))
+            {
+                sortMethod = "NoteDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "NoteAscending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }
