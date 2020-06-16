@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,7 +64,7 @@ namespace ProcessNote
         {
             List<CustomProcess> result = new List<CustomProcess>();
 
-            Process[] remoteAll = Process.GetProcesses("potato345");
+            Process[] remoteAll = Process.GetProcesses();
             foreach (var item in remoteAll)
             {
                 int id = item.Id;
