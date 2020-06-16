@@ -9,9 +9,6 @@ namespace ProcessNote.Model
 {
     class ThreadModel
     {
-        public int Id { get; set; }
-        public int Priority { get; set; }
-        public int Started { get; set; }
 
         private List<ProcessThread> processThreadsList;
 
@@ -20,10 +17,9 @@ namespace ProcessNote.Model
             processThreadsList = new List<ProcessThread>();
         }
 
-        private void GetAllProcessThreads(Process process)
+        public void GetAllProcessThreads(int id)
         {
-            ProcessThreadCollection threads = process.Threads;
-
+            ProcessThreadCollection threads = Process.GetProcessById(id).Threads;
             foreach(ProcessThread thread in threads)
             {
                 processThreadsList.Add(thread);
