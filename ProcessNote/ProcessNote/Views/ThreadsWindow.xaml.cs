@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ProcessNote.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,19 +12,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ProcessNote.Views
 {
     /// <summary>
-    /// Interaction logic for ThreadView.xaml
+    /// Interaction logic for ThreadsWindow.xaml
     /// </summary>
-    public partial class ThreadView : UserControl
+    public partial class ThreadsWindow : Window
     {
-        public ThreadView()
+        ThreadModel model;
+
+        public ThreadsWindow(int processId)
         {
             InitializeComponent();
+            model = new ThreadModel();
+            model.GetAllProcessThreads(processId);
+            threadSource.ItemsSource = model.GetThreadsList();
         }
     }
 }
