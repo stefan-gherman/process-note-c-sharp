@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,11 +34,11 @@ namespace ProcessNote
             InitializeComponent();
             List<CustomProcess> stats = new List<CustomProcess>();
 
-             
+
             stats = populateStats();
             stats.Sort((x, y) => y.Memory.CompareTo(x.Memory));
             statsSource.ItemsSource = stats;
-                        
+
 
         }
 
@@ -96,7 +96,7 @@ namespace ProcessNote
 
                 int thread = Convert.ToInt32(item.Threads.Count);
 
-                result.Add( new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread} );
+                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });
             }
 
 
@@ -110,11 +110,18 @@ namespace ProcessNote
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
+
+
+
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+           this.Topmost = this.Topmost ? false : true;
+        }
     }
 
     public class CustomProcess
     {
-        
+
         public int ID { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }
@@ -124,5 +131,5 @@ namespace ProcessNote
         public int Thread { get; set; }
     }
 
-    
+
 }
