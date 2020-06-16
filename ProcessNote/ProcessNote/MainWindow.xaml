@@ -79,7 +79,10 @@
             <!--  Right click menu  -->
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem FontSize="13" Header="Show Threads" />
+                    <MenuItem
+                        Click="ShowThreads_Click"
+                        FontSize="13"
+                        Header="Show Threads" />
                     <Separator />
                     <MenuItem FontSize="13" Header="Add Comment" />
                 </ContextMenu>
