@@ -63,7 +63,7 @@ namespace ProcessNote
             List<CustomProcess> result = new List<CustomProcess>();
             Dictionary<int, int> history = new Dictionary<int, int>();
             
-            Process[] remoteAll = Process.GetProcesses("potato345");
+            Process[] remoteAll = Process.GetProcesses();
             foreach (var item in remoteAll)
             {
                 int id = item.Id;
