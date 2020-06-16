@@ -94,6 +94,14 @@ namespace ProcessNote
             {
                 stats.Sort((x, y) => y.Memory.CompareTo(x.Memory));
             }
+            else if (sortMethod.Equals("StartedAscending"))
+            {
+                stats.Sort((x, y) => x.Started.CompareTo(y.Started));
+            }
+            else if (sortMethod.Equals("StartedDescending"))
+            {
+                stats.Sort((x, y) => y.Started.CompareTo(x.Started));
+            }
             else
             {
                 stats.Sort((x, y) => y.CPU.CompareTo(x.CPU));
@@ -268,6 +276,21 @@ namespace ProcessNote
             else
             {
                 sortMethod = "MemoryAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Started_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Started Header clicked.");
+            if (sortMethod.Equals("StartedAscending"))
+            {
+                sortMethod = "StartedDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "StartedAscending";
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }

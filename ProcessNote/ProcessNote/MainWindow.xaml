@@ -79,8 +79,6 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    
-                    <!--<GridViewColumn Header="Memory" Width="100" DisplayMemberBinding="{Binding Memory}"/>-->
                     <GridViewColumn DisplayMemberBinding=
                           "{Binding Memory}" 
                       Width="100">
@@ -92,7 +90,19 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
                     
-                    <GridViewColumn Header="Start Time" Width="160" DisplayMemberBinding="{Binding Started}"/>
+                    <!--<GridViewColumn Header="Start Time" Width="160" DisplayMemberBinding="{Binding Started}"/>-->
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Started}" 
+                      Width="160">
+                        <GridViewColumnHeader Click="Started_Click">Started
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    
+                    
                     <GridViewColumn Header="Thread" Width="100" DisplayMemberBinding="{Binding Thread}"/>
                 </GridView>
 
