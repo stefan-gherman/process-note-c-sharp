@@ -17,6 +17,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     mc:Ignorable="d">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
@@ -32,8 +33,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
-
-
         <ListView
             Name="statsSource"
             Grid.Row="1"
@@ -43,18 +42,24 @@
             Loaded="statsSource_Loaded">
             <ListView.View>
 
-                <GridView AllowsColumnReorder="true">
-                    <GridViewColumn Width="60" DisplayMemberBinding="{Binding ID}">
-                        <GridViewColumnHeader Click="ID_Click">
-                            ID
+
+                <GridView AllowsColumnReorder="true" x:Name="GridViewMain">
+                    
+                    <GridViewColumn DisplayMemberBinding="{Binding ID}" 
+                                    Width="60"
+                                    x:Name="IDColumn"
+                                    >
+                        <GridViewColumnHeader Click="ID_Click">ID
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu />
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Name}">
-                        <GridViewColumnHeader Click="Name_Click">
-                            Name
+                   
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Name}" 
+                      Width="150">
+                        <GridViewColumnHeader Click="Name_Click">Name
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu />
                             </GridViewColumnHeader.ContextMenu>
