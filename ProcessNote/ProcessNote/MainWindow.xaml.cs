@@ -1,5 +1,6 @@
 using ProcessNote.Views;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Windows;
@@ -14,7 +15,7 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static List<int> browserWindows = new List<int>();
+        public static ConcurrentDictionary<int, BrowserView> openBrowserWindows = new ConcurrentDictionary<int, BrowserView>();
         private string sortMethod;
         private BrowserView browserViewWindow;
 
@@ -244,17 +245,10 @@ namespace ProcessNote
         {
             browserViewWindow = new BrowserView(this, _timer, processNameQuery.Text);
             browserViewWindow.Show();
-            browserWindows.Add(browserViewWindow.GetHashCode());
+            openBrowserWindows.TryAdd(browserViewWindow.GetHashCode(), browserViewWindow);
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if (browserViewWindow != null)
-            {
-                browserViewWindow.Close();
-            }
-            _timer.Stop();
-        }
+        
 
         private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
