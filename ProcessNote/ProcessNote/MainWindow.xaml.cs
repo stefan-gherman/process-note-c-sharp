@@ -50,6 +50,7 @@ namespace ProcessNote
             //await CustomProcess.PopulateStats();
             //statsSource.ItemsSource = stats;
             statsSource.ItemsSource = CustomProcess.Stats;
+            processSelected = processNameQuery.Text;
         }
 
         private async void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -197,7 +198,7 @@ namespace ProcessNote
         private void webSearchButton_Click(object sender, RoutedEventArgs e)
         {
 
-            browserViewWindow = new BrowserView(this, _timer);
+            browserViewWindow = new BrowserView(this, _timer, processNameQuery.Text);
             browserViewWindow.Show();
         }
 
