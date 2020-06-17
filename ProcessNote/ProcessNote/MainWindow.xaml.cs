@@ -30,6 +30,7 @@ namespace ProcessNote
     {
         public static List<int> browserWindows = new List<int>(); 
         private string sortMethod;
+        private BrowserView browserViewWindow;
         public string SortMethod
         {
             get { return sortMethod; }

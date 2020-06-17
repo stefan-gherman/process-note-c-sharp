@@ -39,27 +39,28 @@
             Grid.Column="1"
             Margin="2"
             Background="DarkGray"
-            Loaded="statsSource_Loaded">
+            Loaded="statsSource_Loaded"
+            MouseLeftButtonUp="statsSource_MouseLeftButtonUp">
             <ListView.View>
 
 
-                <GridView AllowsColumnReorder="true" x:Name="GridViewMain">
-                    
-                    <GridViewColumn DisplayMemberBinding="{Binding ID}" 
-                                    Width="60"
-                                    x:Name="IDColumn"
-                                    >
-                        <GridViewColumnHeader Click="ID_Click">ID
+                <GridView x:Name="GridViewMain" AllowsColumnReorder="true">
+
+                    <GridViewColumn
+                        x:Name="IDColumn"
+                        Width="60"
+                        DisplayMemberBinding="{Binding ID}">
+                        <GridViewColumnHeader Click="ID_Click">
+                            ID
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu />
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                   
-                    <GridViewColumn DisplayMemberBinding=
-                          "{Binding Name}" 
-                      Width="150">
-                        <GridViewColumnHeader Click="Name_Click">Name
+
+                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumnHeader Click="Name_Click">
+                            Name
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu />
                             </GridViewColumnHeader.ContextMenu>
@@ -120,15 +121,56 @@
                         FontSize="13"
                         Header="Show Threads" />
                     <Separator />
-                    <MenuItem FontSize="13" Header="Add Comment" Click="AddComment_Click"/>
+                    <MenuItem
+                        Click="AddComment_Click"
+                        FontSize="13"
+                        Header="Add Comment" />
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>
 
-        <ToggleButton  Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="Auto" Grid.Row="1" Margin="0,0.2,25.8,0" Click="CheckBox_Click" />
-        <TextBlock Grid.Row="1" Grid.Column="1" Width="Auto" HorizontalAlignment="Right"  VerticalAlignment="Top" Margin="0,0.2,64.8,0">Always On Top</TextBlock>
-        <Button Name="webSearchButton" Content="Search Online" FontSize="8" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Margin="0,4,162.8,0" Height="17" Width="96" Click="webSearchButton_Click" Grid.RowSpan="2"/>
-        <TextBox Grid.Column="1" Name="processNameQuery" HorizontalAlignment="Left" Height="20" Margin="428.2,1,0,0" TextWrapping="Wrap" TextAlignment="Center" FontSize="10"  VerticalAlignment="Top" Width="82" IsReadOnly="True" Grid.RowSpan="2"/>
+        <ToggleButton
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="Auto"
+            Margin="0,0.2,25.8,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="CheckBox_Click" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="Auto"
+            Margin="0,0.2,64.8,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top">
+            Always On Top
+        </TextBlock>
+        <Button
+            Name="webSearchButton"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Width="96"
+            Height="17"
+            Margin="0,4,162.8,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="webSearchButton_Click"
+            Content="Search Online"
+            FontSize="8" />
+        <TextBox
+            Name="processNameQuery"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Width="82"
+            Height="20"
+            Margin="428.2,1,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            FontSize="10"
+            IsReadOnly="True"
+            TextAlignment="Center"
+            TextWrapping="Wrap" />
 
 
     </Grid>

@@ -34,7 +34,7 @@ namespace ProcessNote
                 string note = verifyNote(id);
                 // CPU custom generation process
 
-                int cpu = 0;              
+                long cpu = 0;              
                 if (History.Count() <= 0)
                 {
                     Random randomPercent = new Random();
