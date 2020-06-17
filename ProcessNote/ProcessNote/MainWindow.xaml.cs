@@ -218,5 +218,20 @@ namespace ProcessNote
             var item = (ListView)contextMenu.PlacementTarget;
             return (CustomProcess)item.SelectedItem;
         }
+
+        
+
+        private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                CustomProcess customProcess = (CustomProcess)statsSource.SelectedItems[0];
+                processNameQuery.Text = customProcess.Name;
+            } catch (Exception exp)
+            {
+                Console.WriteLine($"Something went wrong {exp}");
+            }
+            
+        }
     }
 }
