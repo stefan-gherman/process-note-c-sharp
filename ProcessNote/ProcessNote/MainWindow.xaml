@@ -16,7 +16,7 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    mc:Ignorable="d" Loaded="Window_Loaded">
+    mc:Ignorable="d" Loaded="Window_Loaded" Closed="Window_Closed_1">
 
     <Grid>
         <Grid.ColumnDefinitions>
