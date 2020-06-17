@@ -262,6 +262,15 @@ namespace ProcessNote
                 Console.WriteLine($"Something went wrong");
             }
         }
+
+        private void Window_Closed_1(object sender, EventArgs e)
+        {
+            foreach (BrowserView view in openBrowserWindows.Values)
+            {
+                view.Close();
+            }
+            _timer.Stop();
+        }
     }
 
 }
