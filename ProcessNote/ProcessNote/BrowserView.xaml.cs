@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +20,7 @@ namespace ProcessNote
     /// Interaction logic for BrowserView.xaml
     /// </summary>
     /// 
-   
+
     public partial class BrowserView : Window
     {
         private readonly string gitHubURI = "https://github.com/cdne/process-note-c-sharp";
@@ -31,49 +31,87 @@ namespace ProcessNote
         public string StringSearchEngineSearchQuery
         {
             get { return _stringSearchEngineSearchQuery; }
-            set { _stringSearchEngineSearchQuery = value;  }
+            set { _stringSearchEngineSearchQuery = value; }
         }
         public BrowserView(MainWindow mainWindow, DispatcherTimer _timer, string processName)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
             this._mainWindowTimer = _timer;
-            if(processName != "")
+            if (processName != "")
             {
                 StringSearchEngineSearchQuery = bingQuery + processName;
                 webView.Source = new Uri(StringSearchEngineSearchQuery);
-            } else
+            }
+            else
             {
                 webView.Source = new Uri(gitHubURI);
             }
 
-           
+
         }
 
-      
+
 
         private void Window_Closed(object sender, EventArgs e)
         {
             MainWindow.browserWindows.Remove(this.GetHashCode());
-            if(MainWindow.browserWindows.Count == 0 )
+            if (MainWindow.browserWindows.Count == 0)
             {
-                
+
                 _mainWindowTimer.Start();
-               
+
             }
-               
+
         }
 
         private void webView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
         {
+            ButtonsEnablerDisabler();
             _mainWindowTimer.Start();
         }
 
         private void webView_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
+            ButtonsEnablerDisabler();
             _mainWindowTimer.Stop();
+           
+        }
+
+        private void backwardButton_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            webView.GoBack();
+
+
+        }
+
+        private void forwardButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            webView.GoForward();
+        }
+
+        private void ButtonsEnablerDisabler()
+        {
+            if (!webView.CanGoBack)
+            {
+                backwardButton.IsEnabled = false;
+            }
+            else
+            {
+                backwardButton.IsEnabled = true;
+            }
+            if (!webView.CanGoForward)
+            {
+                forwardButton.IsEnabled = false;
+            }
+            else
+            {
+                forwardButton.IsEnabled = true;
+            }
         }
     }
-    }
+}
 
-      
