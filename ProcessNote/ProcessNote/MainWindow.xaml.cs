@@ -28,6 +28,7 @@ namespace ProcessNote
     public partial class MainWindow : Window
     {
         private string sortMethod;
+        public static List<int> browserWindows = new List<int>(); 
 
         public string SortMethod
         {
