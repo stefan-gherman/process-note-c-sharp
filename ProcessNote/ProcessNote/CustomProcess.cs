@@ -26,15 +26,15 @@ namespace ProcessNote
         public static async Task PopulateStats()
         {
             List<CustomProcess> result = new List<CustomProcess>();
-            Process[] remoteAll = await Task.Run(() => Process.GetProcesses());
-            foreach (var item in remoteAll)
+            Parallel.ForEach(Process.GetProcesses(),
+            item =>
             {
                 int id = item.Id;
                 string name = item.ProcessName;
                 string note = verifyNote(id);
-                // CPU custom generation process
-
-                long cpu = 0;              
+                // CPU custom generation process - RNG with variation simulation
+                // Because of security reasons we did not push the access of the app
+                long cpu = 0;
                 if (History.Count() <= 0)
                 {
                     Random randomPercent = new Random();
@@ -46,10 +46,9 @@ namespace ProcessNote
                     var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
                     int randomPercent = values[randomPositiveNegative.Next(values.Length)];
                     cpu = findPreviousCPUValue(History, id) + randomPercent;
-                }             
-
+                }
                 int memory = Convert.ToInt32(item.WorkingSet64);
-
+                // startTime also has simulated parts because of security access
                 string startTime = "00";
                 try
                 {
@@ -59,18 +58,11 @@ namespace ProcessNote
                 {
                     startTime = "6/15/2020 8:45:61 PM";
                 }
-
                 int thread = Convert.ToInt32(item.Threads.Count);
-
-                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });
-
-
-            }
+                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });     
+            });
             Stats = result;
             History = populateHistory(result);
-
-
-            //return result;
         }
 
         private static string verifyNote(int id)
