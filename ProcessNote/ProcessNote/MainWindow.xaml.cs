@@ -35,7 +35,8 @@ namespace ProcessNote
             set { sortMethod = value; }
         }
         private DispatcherTimer _timer;
-        //private BrowserView browserViewWindow;
+        private BrowserView browserViewWindow;
+
         public MainWindow()
         {
             DataContext = this;
@@ -196,16 +197,17 @@ namespace ProcessNote
         private void webSearchButton_Click(object sender, RoutedEventArgs e)
         {
 
-            //browserViewWindow = new BrowserView(this, _timer);
-            //browserViewWindow.Show();
+            browserViewWindow = new BrowserView(this, _timer);
+            browserViewWindow.Show();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            //if (browserViewWindow != null)
-            //{
-            //    browserViewWindow.Close();
-            //}
+            if (browserViewWindow != null)
+            {
+                browserViewWindow.Close();
+            }
+            _timer.Stop();
         }
 
         private CustomProcess GetProcessOnMenuClick(object sender)
