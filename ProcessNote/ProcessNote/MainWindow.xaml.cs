@@ -57,7 +57,7 @@ namespace ProcessNote
             statsSource.ItemsSource = Sorter.SortProcesses(CustomProcess.Stats, sortMethod);
         }
 
-        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        private void statsSource_Loaded(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
             _timer.Interval = new TimeSpan(0, 0, 2);
@@ -197,5 +197,7 @@ namespace ProcessNote
             var item = (ListView)contextMenu.PlacementTarget;
             return (CustomProcess)item.SelectedItem;
         }
+
+        
     }  
 }
