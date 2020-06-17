@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,6 +55,10 @@ namespace ProcessNote
             //_mainWindowTimer.Start();
         }
 
+        private void webView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
+        {
+            _mainWindowTimer.Start();
+        }
 
     }
     }
