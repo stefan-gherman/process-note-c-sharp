@@ -204,6 +204,19 @@ namespace ProcessNote
             return (CustomProcess)item.SelectedItem;
         }
 
-        
+        private void AddComment_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var processId = GetProcessOnMenuClick(sender).ID;
+                Console.WriteLine("Process id: " + processId);
+                CommentWindow window = new CommentWindow(processId);
+                window.Show();
+            }
+            catch (Exception exy)
+            {
+
+            }
+        }
     }  
 }
