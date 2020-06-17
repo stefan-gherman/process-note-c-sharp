@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,11 +27,12 @@ namespace ProcessNote
     public partial class MainWindow : Window
     {
         private DispatcherTimer _timer;
+        private BrowserView browserViewWindow;
         public MainWindow()
         {
             DataContext = this;
-            this.Topmost = false;
             InitializeComponent();
+            this.Topmost = false;
             List<CustomProcess> stats = new List<CustomProcess>();
 
 
