@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProcessNote.MainWindow"
+<Window x:Class="ProcessNote.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,7 +11,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Task Manager Monitor" Height="450" Width="800" Loaded="Window_Loaded_1">
+        Title="Task Manager Monitor" Height="450" Width="800" Loaded="Window_Loaded_1" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
