@@ -118,6 +118,13 @@ namespace ProcessNote
         {
            this.Topmost = this.Topmost ? false : true;
         }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (browserViewWindow != null)
+            {
+                browserViewWindow.Close();
+            }
+        }
     }
 
     public class CustomProcess
