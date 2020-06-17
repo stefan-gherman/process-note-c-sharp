@@ -60,7 +60,7 @@ namespace ProcessNote
         private void statsSource_Loaded(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 2);
+            _timer.Interval = new TimeSpan(0, 0, 5);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
@@ -198,6 +198,19 @@ namespace ProcessNote
             return (CustomProcess)item.SelectedItem;
         }
 
-        
+        private void AddComment_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var processId = GetProcessOnMenuClick(sender).ID;
+                Console.WriteLine("Process id: " + processId);
+                CommentWindow window = new CommentWindow(processId);
+                window.Show();
+            }
+            catch (Exception exy)
+            {
+
+            }
+        }
     }  
 }

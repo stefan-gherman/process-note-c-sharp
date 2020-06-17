@@ -15,12 +15,12 @@ namespace ProcessNote
         public int ID { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }
-        public int CPU { get; set; }
+        public long CPU { get; set; }
         public int Memory { get; set; }
         public string Started { get; set; }
         public int Thread { get; set; }
         public static List<CustomProcess> Stats { get; set; }
-        public static Dictionary<int, int> History = new Dictionary<int, int>();
+        public static Dictionary<int, long> History = new Dictionary<int, long>();
         public static Dictionary<int, string> Notes = new Dictionary<int, string>();
 
         public static async Task PopulateStats()
@@ -33,10 +33,10 @@ namespace ProcessNote
                 string name = item.ProcessName;
                 string note = verifyNote(id);
                 // CPU custom generation process
-                int cpu = 0;
+                long cpu = 0;
                 try
                 {
-                    cpu = Convert.ToInt32(item.TotalProcessorTime);
+                    cpu = Convert.ToInt64(item.TotalProcessorTime);
                 }
                 catch (Exception e)
                 {
@@ -94,9 +94,9 @@ namespace ProcessNote
             return note;
         }
 
-        private static Dictionary<int, int> populateHistory(List<CustomProcess> result)
+        private static Dictionary<int, long> populateHistory(List<CustomProcess> result)
         {
-            Dictionary<int, int> history = new Dictionary<int, int>();
+            Dictionary<int, long> history = new Dictionary<int, long>();
             foreach (var item in result)
             {
                 history.Add(item.ID, item.CPU);
@@ -105,9 +105,9 @@ namespace ProcessNote
             return history;
         }
 
-        private static int findPreviousCPUValue(Dictionary<int, int> history, int id)
+        private static long findPreviousCPUValue(Dictionary<int, long> history, int id)
         {
-            int tempResult = 0;
+            long tempResult = 0;
             try
             {
                 tempResult = history[id];
