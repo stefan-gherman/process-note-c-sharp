@@ -55,8 +55,9 @@ namespace ProcessNote
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            MainWindow.browserWindows.Remove(this.GetHashCode());
-            if (MainWindow.browserWindows.Count == 0)
+            BrowserView wasRemoved;
+            MainWindow.openBrowserWindows.TryRemove(this.GetHashCode(),out wasRemoved);
+            if (MainWindow.openBrowserWindows.Count == 0)
             {
 
                 _mainWindowTimer.Start();
