@@ -1,25 +1,11 @@
+using ProcessNote.Views;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Diagnostics;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Threading;
-using ProcessNote.Views;
-using System.Configuration;
-using System.Collections.Specialized;
 
 namespace ProcessNote
 {
@@ -28,21 +14,24 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static List<int> browserWindows = new List<int>(); 
+        public static List<int> browserWindows = new List<int>();
         private string sortMethod;
         private BrowserView browserViewWindow;
+
         public string SortMethod
         {
             get { return sortMethod; }
             set { sortMethod = value; }
         }
+
         public int RefreshInterval { get; set; }
         private DispatcherTimer _timer;
+
         public MainWindow()
         {
             string configKeyRefreshInterval = ConfigurationManager.AppSettings.Get("RefreshInterval");
             RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);
-            
+
             DataContext = this;
             InitializeComponent();
             CustomProcess.History.Clear();
@@ -176,20 +165,18 @@ namespace ProcessNote
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }
-        
+
         private void ShowThreads_Click(object sender, RoutedEventArgs e)
         {
-            try 
-            { 
+            try
+            {
                 var processId = GetProcessOnMenuClick(sender).ID;
                 ThreadsWindow window = new ThreadsWindow(processId);
                 window.Show();
             }
             catch (Exception exy)
             {
-
             }
-            
         }
 
         private CustomProcess GetProcessOnMenuClick(object sender)
@@ -211,10 +198,9 @@ namespace ProcessNote
             }
             catch (Exception exy)
             {
-
             }
         }
-        
+
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
             this.Topmost = this.Topmost ? false : true;
@@ -222,7 +208,6 @@ namespace ProcessNote
 
         private void webSearchButton_Click(object sender, RoutedEventArgs e)
         {
-
             browserViewWindow = new BrowserView(this, _timer, processNameQuery.Text);
             browserViewWindow.Show();
             browserWindows.Add(browserViewWindow.GetHashCode());
@@ -236,18 +221,18 @@ namespace ProcessNote
             }
             _timer.Stop();
         }
-        
-                private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+
+        private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
                 CustomProcess customProcess = (CustomProcess)statsSource.SelectedItems[0];
                 processNameQuery.Text = customProcess.Name;
-            } catch (Exception exp)
-            {
-                Console.WriteLine($"Something went wrong {exp}");
             }
-            
+            catch (Exception exp)
+            {
+                Console.WriteLine($"Something went wrong");
+            }
         }
-    }  
+    }
 }
