@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -118,6 +118,14 @@ namespace ProcessNote
         {
            this.Topmost = this.Topmost ? false : true;
         }
+
+        private void webSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+           
+            browserViewWindow = new BrowserView(this, _timer);
+            browserViewWindow.Show();
+        }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             if (browserViewWindow != null)
