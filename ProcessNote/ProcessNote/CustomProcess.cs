@@ -26,14 +26,13 @@ namespace ProcessNote
         public static async Task PopulateStats()
         {
             List<CustomProcess> result = new List<CustomProcess>();
-            Parallel.ForEach(Process.GetProcesses(),
-            item =>
+            Process[] remoteAll = await Task.Run(() => Process.GetProcesses());
+            foreach (var item in remoteAll)
             {
                 int id = item.Id;
                 string name = item.ProcessName;
                 string note = verifyNote(id);
-                // CPU custom generation process - RNG with variation simulation
-                // Because of security reasons we did not push the access of the app
+                // CPU custom generation process because of security permissions
                 long cpu = 0;
                 if (History.Count() <= 0)
                 {
@@ -45,10 +44,10 @@ namespace ProcessNote
                     Random randomPositiveNegative = new Random();
                     var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
                     int randomPercent = values[randomPositiveNegative.Next(values.Length)];
-                    cpu = findPreviousCPUValue(History, id) + randomPercent;
+                    cpu = findPreviousCPUValue(id) + randomPercent;
                 }
                 int memory = Convert.ToInt32(item.WorkingSet64);
-                // startTime also has simulated parts because of security access
+                // Some of the processes do not allow access so there are simulations
                 string startTime = "00";
                 try
                 {
@@ -58,11 +57,12 @@ namespace ProcessNote
                 {
                     startTime = "6/15/2020 8:45:61 PM";
                 }
+
                 int thread = Convert.ToInt32(item.Threads.Count);
-                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });     
-            });
+                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });
+            }
             Stats = result;
-            History = populateHistory(result);
+            populateHistory(result);
         }
 
         private static string verifyNote(int id)
@@ -79,24 +79,29 @@ namespace ProcessNote
             return note;
         }
 
-        private static Dictionary<int, long> populateHistory(List<CustomProcess> result)
+        private static bool populateHistory(List<CustomProcess> result)
         {
-            Dictionary<int, long> history = new Dictionary<int, long>();
             foreach (var item in result)
             {
-                history.Add(item.ID, item.CPU);
+                try
+                {
+                    History.Add(item.ID, item.CPU);
+                }
+                catch (Exception He)
+                {
+                    History[item.ID] = item.CPU;
+                }          
             }
             Console.WriteLine("history populated");
-            return history;
+            return true;
         }
 
-        private static long findPreviousCPUValue(Dictionary<int, long> history, int id)
+        private static long findPreviousCPUValue(int id)
         {
             long tempResult = 0;
             try
             {
-                tempResult = history[id];
-                //Console.WriteLine("value history found" + tempResult);
+                tempResult = History[id];
             }
             catch (Exception e)
             {
@@ -104,13 +109,5 @@ namespace ProcessNote
             }
             return tempResult;
         }
-
-
-
-
     }
-
-
-
-
 }

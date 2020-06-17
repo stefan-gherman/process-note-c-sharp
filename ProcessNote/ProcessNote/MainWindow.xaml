@@ -21,15 +21,11 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
-            <!--<ColumnDefinition Width="auto"/>-->
-
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="5" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
-            <!--<RowDefinition Height="auto" />-->
-
             <RowDefinition Height="*" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
@@ -42,10 +38,9 @@
             Loaded="statsSource_Loaded"
             MouseLeftButtonUp="statsSource_MouseLeftButtonUp">
             <ListView.View>
-
-
-                <GridView x:Name="GridViewMain" AllowsColumnReorder="true">
-
+                <GridView 
+                    x:Name="GridViewMain" 
+                    AllowsColumnReorder="true">
                     <GridViewColumn
                         x:Name="IDColumn"
                         Width="60"
@@ -57,8 +52,10 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-
-                    <GridViewColumn x:Name="NameColumn" Width="150" DisplayMemberBinding="{Binding Name}">
+                    <GridViewColumn 
+                        x:Name="NameColumn" 
+                        Width="150" 
+                        DisplayMemberBinding="{Binding Name}">
                         <GridViewColumnHeader Click="Name_Click">
                             Name
                             <GridViewColumnHeader.ContextMenu>
@@ -66,7 +63,10 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="NoteColumn" Width="100" DisplayMemberBinding="{Binding Note}">
+                    <GridViewColumn 
+                        x:Name="NoteColumn"
+                        Width="100" 
+                        DisplayMemberBinding="{Binding Note}">
                         <GridViewColumnHeader Click="Note_Click">
                             Note
                             <GridViewColumnHeader.ContextMenu>
@@ -74,7 +74,10 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="CPUColumn" Width="60" DisplayMemberBinding="{Binding CPU}">
+                    <GridViewColumn 
+                        x:Name="CPUColumn" 
+                        Width="60" 
+                        DisplayMemberBinding="{Binding CPU}">
                         <GridViewColumnHeader Click="CPU_Click">
                             CPU
                             <GridViewColumnHeader.ContextMenu>
@@ -82,7 +85,10 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="MemoryColumn" Width="100" DisplayMemberBinding="{Binding Memory}">
+                    <GridViewColumn 
+                        x:Name="MemoryColumn" 
+                        Width="100" 
+                        DisplayMemberBinding="{Binding Memory}">
                         <GridViewColumnHeader Click="Memory_Click">
                             Memory
                             <GridViewColumnHeader.ContextMenu>
@@ -90,8 +96,10 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="StartedColumn" Width="160" DisplayMemberBinding="{Binding Started}">
-
+                    <GridViewColumn 
+                        x:Name="StartedColumn" 
+                        Width="160" 
+                        DisplayMemberBinding="{Binding Started}">
                         <GridViewColumnHeader Click="Started_Click">
                             Started
                             <GridViewColumnHeader.ContextMenu>
@@ -99,8 +107,10 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-
-                    <GridViewColumn x:Name="ThreadColumn" Width="100" DisplayMemberBinding="{Binding Thread}">
+                    <GridViewColumn 
+                        x:Name="ThreadColumn" 
+                        Width="100" 
+                        DisplayMemberBinding="{Binding Thread}">
                         <GridViewColumnHeader Click="Thread_Click">
                             Thread
                             <GridViewColumnHeader.ContextMenu>
@@ -109,7 +119,6 @@
                         </GridViewColumnHeader>
                     </GridViewColumn>
                 </GridView>
-
             </ListView.View>
 
             <!--  Right click menu  -->

@@ -37,9 +37,6 @@ namespace ProcessNote
             List<CustomProcess> stats = new List<CustomProcess>();
             sortMethod = "CPUDescending";
             Console.WriteLine("sortMethod set to: " + sortMethod);
-            //stats = CustomProcess.PopulateStats();
-            //await CustomProcess.PopulateStats();
-            //statsSource.ItemsSource = stats;
             statsSource.ItemsSource = CustomProcess.Stats;
         }
 
