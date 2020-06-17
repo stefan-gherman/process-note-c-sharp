@@ -3,29 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProcessNote"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         
+       
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-       
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Online Help" Height="450" Width="800" Closed="Window_Closed" SizeChanged="Window_SizeChanged" Background="LightGray" >
+        Title="Online Help" Height="450" Width="800" Closed="Window_Closed" >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <!--<ColumnDefinition Width="auto"/>-->
-
-            
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <!--<RowDefinition Height="auto" />-->
-
-            
-        </Grid.RowDefinitions>
-        <WebBrowser Name ="browser" HorizontalAlignment="Center" Height="350" VerticalAlignment="Center" Width="700" Grid.Column="1"  Grid.Row="1"/>
+        <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48">Loading Web View</TextBlock>-->
+        <DockPanel>
+            <wv2:WebView2 Name="webView"></wv2:WebView2>
+        </DockPanel>
     </Grid>
 </Window>
