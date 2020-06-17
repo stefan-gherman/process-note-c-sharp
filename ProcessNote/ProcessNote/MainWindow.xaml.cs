@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using ProcessNote.Views;
+using ProcessNote.Model;
 
 namespace ProcessNote
 {
@@ -34,7 +35,7 @@ namespace ProcessNote
             set { sortMethod = value; }
         }
         private DispatcherTimer _timer;
-        private BrowserView browserViewWindow;
+        //private BrowserView browserViewWindow;
         public MainWindow()
         {
             DataContext = this;
@@ -171,11 +172,11 @@ namespace ProcessNote
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }
-        
+
         private void ShowThreads_Click(object sender, RoutedEventArgs e)
         {
-            try 
-            { 
+            try
+            {
                 var processId = GetProcessOnMenuClick(sender).ID;
                 ThreadsWindow window = new ThreadsWindow(processId);
                 window.Show();
@@ -184,7 +185,7 @@ namespace ProcessNote
             {
 
             }
-            
+
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
@@ -194,19 +195,18 @@ namespace ProcessNote
 
         private void webSearchButton_Click(object sender, RoutedEventArgs e)
         {
-           
-            browserViewWindow = new BrowserView(this, _timer);
-            browserViewWindow.Show();
+
+            //browserViewWindow = new BrowserView(this, _timer);
+            //browserViewWindow.Show();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if (browserViewWindow != null)
-            {
-                browserViewWindow.Close();
-            }
+            //if (browserViewWindow != null)
+            //{
+            //    browserViewWindow.Close();
+            //}
         }
-    }
 
         private CustomProcess GetProcessOnMenuClick(object sender)
         {
@@ -215,5 +215,5 @@ namespace ProcessNote
             var item = (ListView)contextMenu.PlacementTarget;
             return (CustomProcess)item.SelectedItem;
         }
-    }  
+    }
 }
