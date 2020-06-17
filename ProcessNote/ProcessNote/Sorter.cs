@@ -9,6 +9,13 @@ namespace ProcessNote
 {
     public class Sorter
     {
+        /// <summary>
+        /// Sorts the processes by different properties. Is displayed on next tick 
+        /// when the new sorted list is picked up.
+        /// </summary>
+        /// <param name="stats"></param>
+        /// <param name="sortMethod"></param>
+        /// <returns></returns>
         public static List<CustomProcess> SortProcesses(List<CustomProcess> stats, string sortMethod)
         {
             if (sortMethod.Equals("IDAscending"))
