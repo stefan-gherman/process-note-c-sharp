@@ -33,27 +33,19 @@ namespace ProcessNote
                 string name = item.ProcessName;
                 string note = verifyNote(id);
                 // CPU custom generation process
-                int cpu = 0;
-                try
+                int cpu = 0;              
+                if (History.Count() <= 0)
                 {
-                    cpu = Convert.ToInt32(item.TotalProcessorTime);
+                    Random randomPercent = new Random();
+                    cpu = randomPercent.Next(5, 17);
                 }
-                catch (Exception e)
+                else
                 {
-                    if (History.Count() <= 0)
-                    {
-                        Random randomPercent = new Random();
-                        cpu = randomPercent.Next(5, 17);
-                    }
-                    else
-                    {
-                        Random randomPositiveNegative = new Random();
-                        var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
-                        int randomPercent = values[randomPositiveNegative.Next(values.Length)];
-                        cpu = findPreviousCPUValue(History, id) + randomPercent;
-                    }
-
-                }
+                    Random randomPositiveNegative = new Random();
+                    var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
+                    int randomPercent = values[randomPositiveNegative.Next(values.Length)];
+                    cpu = findPreviousCPUValue(History, id) + randomPercent;
+                }             
 
                 int memory = Convert.ToInt32(item.WorkingSet64);
 

@@ -13,8 +13,8 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Task Manager Monitor" Height="450" Width="800" Loaded="Window_Loaded_1">
-    <Grid Loaded="Grid_Loaded">
+        Title="Task Manager Monitor" Height="450" Width="800">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
             <!--<ColumnDefinition Width="auto"/>-->
@@ -29,7 +29,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
-        
+
 
         <ListView Grid.Column="1" Grid.Row="1"
                   Background="DarkGray"
@@ -38,10 +38,12 @@
                   >
             <ListView.View>
 
-                <GridView AllowsColumnReorder="true">
-                    <GridViewColumn DisplayMemberBinding=
-                          "{Binding ID}" 
-                      Width="60">
+                <GridView AllowsColumnReorder="true" x:Name="GridViewMain">
+                    
+                    <GridViewColumn DisplayMemberBinding="{Binding ID}" 
+                                    Width="60"
+                                    x:Name="IDColumn"
+                                    >
                         <GridViewColumnHeader Click="ID_Click">ID
                             <GridViewColumnHeader.ContextMenu>
                                 <ContextMenu>
@@ -49,6 +51,7 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
+                    
                     <GridViewColumn DisplayMemberBinding=
                           "{Binding Name}" 
                       Width="150">
