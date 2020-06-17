@@ -36,7 +36,7 @@ namespace ProcessNote
         }
         private DispatcherTimer _timer;
         private BrowserView browserViewWindow;
-
+        private String processSelected;
         public MainWindow()
         {
             DataContext = this;
