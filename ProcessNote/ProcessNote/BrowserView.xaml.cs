@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,13 +46,22 @@ namespace ProcessNote
             {
                 webView.Source = new Uri(gitHubURI);
             }
+
            
-            //_mainWindowTimer.Stop();
         }
+
+      
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            //_mainWindowTimer.Start();
+            MainWindow.browserWindows.Remove(this.GetHashCode());
+            if(MainWindow.browserWindows.Count == 0 )
+            {
+                
+                _mainWindowTimer.Start();
+               
+            }
+               
         }
 
         private void webView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
