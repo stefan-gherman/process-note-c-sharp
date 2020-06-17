@@ -18,7 +18,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using ProcessNote.Views;
-using ProcessNote.Model;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace ProcessNote
 {
@@ -27,23 +28,23 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string sortMethod;
         public static List<int> browserWindows = new List<int>(); 
-
+        private string sortMethod;
         public string SortMethod
         {
             get { return sortMethod; }
             set { sortMethod = value; }
         }
+        public int RefreshInterval { get; set; }
         private DispatcherTimer _timer;
-        private BrowserView browserViewWindow;
-        private String processSelected;
         public MainWindow()
         {
+            string configKeyRefreshInterval = ConfigurationManager.AppSettings.Get("RefreshInterval");
+            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);
+            
             DataContext = this;
             InitializeComponent();
             CustomProcess.History.Clear();
-            this.Topmost = false;
             List<CustomProcess> stats = new List<CustomProcess>();
             sortMethod = "CPUDescending";
             Console.WriteLine("sortMethod set to: " + sortMethod);
@@ -51,7 +52,6 @@ namespace ProcessNote
             //await CustomProcess.PopulateStats();
             //statsSource.ItemsSource = stats;
             statsSource.ItemsSource = CustomProcess.Stats;
-            processSelected = processNameQuery.Text;
         }
 
         private async void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -63,10 +63,10 @@ namespace ProcessNote
             statsSource.ItemsSource = Sorter.SortProcesses(CustomProcess.Stats, sortMethod);
         }
 
-        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        private void statsSource_Loaded(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 2);
+            _timer.Interval = new TimeSpan(0, 0, RefreshInterval);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
@@ -175,11 +175,11 @@ namespace ProcessNote
                 Console.WriteLine("sortMethod changed to: " + sortMethod);
             }
         }
-
+        
         private void ShowThreads_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            try 
+            { 
                 var processId = GetProcessOnMenuClick(sender).ID;
                 ThreadsWindow window = new ThreadsWindow(processId);
                 window.Show();
@@ -188,9 +188,32 @@ namespace ProcessNote
             {
 
             }
-
+            
         }
 
+        private CustomProcess GetProcessOnMenuClick(object sender)
+        {
+            var menuItem = (MenuItem)sender;
+            var contextMenu = (ContextMenu)menuItem.Parent;
+            var item = (ListView)contextMenu.PlacementTarget;
+            return (CustomProcess)item.SelectedItem;
+        }
+
+        private void AddComment_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var processId = GetProcessOnMenuClick(sender).ID;
+                Console.WriteLine("Process id: " + processId);
+                CommentWindow window = new CommentWindow(processId);
+                window.Show();
+            }
+            catch (Exception exy)
+            {
+
+            }
+        }
+        
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
             this.Topmost = this.Topmost ? false : true;
@@ -212,18 +235,8 @@ namespace ProcessNote
             }
             _timer.Stop();
         }
-
-        private CustomProcess GetProcessOnMenuClick(object sender)
-        {
-            var menuItem = (MenuItem)sender;
-            var contextMenu = (ContextMenu)menuItem.Parent;
-            var item = (ListView)contextMenu.PlacementTarget;
-            return (CustomProcess)item.SelectedItem;
-        }
-
         
-
-        private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+                private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             try
             {
@@ -235,5 +248,5 @@ namespace ProcessNote
             }
             
         }
-    }
+    }  
 }
