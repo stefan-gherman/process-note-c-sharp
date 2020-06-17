@@ -16,10 +16,10 @@
         Title="Online Help" Height="450" Width="800" Closed="Window_Closed" >
     <Grid>
         <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48">Loading Web View</TextBlock>-->
-        <Button Name="backwardButton"  VerticalAlignment="Top" HorizontalAlignment="Left"    Height="28" Width="63" Margin="10,4,0,0">
+        <Button Name="backwardButton"  VerticalAlignment="Top" HorizontalAlignment="Left"   IsEnabled="False" Height="28" Width="63" Margin="10,4,0,0" Click="backwardButton_Click">
             <materialDesign:PackIcon  Kind="ArrowBack" Height="22" Width="33" Foreground="White"/>
         </Button>
-        <Button Name="forwardButton" VerticalAlignment="Top" HorizontalAlignment="Left"    Height="28" Width="63" Margin="83,4,0,0">
+        <Button Name="forwardButton" VerticalAlignment="Top" HorizontalAlignment="Left"   IsEnabled="False" Height="28" Width="63" Margin="83,4,0,0" Click="forwardButton_Click">
             <materialDesign:PackIcon  Kind="ArrowRight" Height="22" Width="33" Foreground="White"/>
         </Button>
         <DockPanel Margin="0,28,-0.4,0">
