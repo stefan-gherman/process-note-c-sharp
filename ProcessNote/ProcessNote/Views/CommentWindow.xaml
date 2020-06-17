@@ -24,10 +24,12 @@
 
         <StackPanel Grid.Row="1">
             <Button
+                Width="100"
                 Margin="15"
                 Click="SaveComment_Click"
                 Content="Save" />
             <Button
+                Width="100"
                 Margin="15,0,15,15"
                 Click="CloseComment_Click"
                 Content="Close" />
