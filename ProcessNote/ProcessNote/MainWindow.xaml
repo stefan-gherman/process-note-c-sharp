@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Task Manager Monitor" Height="450" Width="800" Loaded="Window_Loaded_1">
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
             <!--<ColumnDefinition Width="auto"/>-->
@@ -34,7 +34,7 @@
         <ListView Grid.Column="1" Grid.Row="1"
                   Background="DarkGray"
                   Margin="2" 
-                  Name="statsSource"
+                  Name="statsSource" Loaded="statsSource_Loaded"
                   >
             <ListView.View>
 
