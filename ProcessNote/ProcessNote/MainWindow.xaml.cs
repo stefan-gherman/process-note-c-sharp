@@ -30,8 +30,7 @@ namespace ProcessNote
         public MainWindow()
         {
             string configKeyRefreshInterval = ConfigurationManager.AppSettings.Get("RefreshInterval");
-            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);
-
+            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);  
             DataContext = this;
             InitializeComponent();
             CustomProcess.History.Clear();
@@ -42,6 +41,44 @@ namespace ProcessNote
             //await CustomProcess.PopulateStats();
             //statsSource.ItemsSource = stats;
             statsSource.ItemsSource = CustomProcess.Stats;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            generateGridView();
+        }
+
+        private void generateGridView()
+        {
+            if (ConfigurationManager.AppSettings.Get("IDVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(IDColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("NameVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(NameColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("NoteVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(NoteColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("CPUVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(CPUColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("MemoryVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(MemoryColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("StartedVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(StartedColumn));
+            }
+            if (ConfigurationManager.AppSettings.Get("ThreadVisibility").Equals("false"))
+            {
+                Console.WriteLine(GridViewMain.Columns.Remove(ThreadColumn));
+            }
+
         }
 
         private async void dispatcherTimer_Tick(object sender, EventArgs e)
@@ -235,4 +272,5 @@ namespace ProcessNote
             }
         }
     }
+
 }
