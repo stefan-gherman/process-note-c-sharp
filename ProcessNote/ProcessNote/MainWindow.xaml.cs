@@ -201,6 +201,7 @@ namespace ProcessNote
 
             browserViewWindow = new BrowserView(this, _timer, processNameQuery.Text);
             browserViewWindow.Show();
+            browserWindows.Add(browserViewWindow.GetHashCode());
         }
 
         private void Window_Closed(object sender, EventArgs e)
