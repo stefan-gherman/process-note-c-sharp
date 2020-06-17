@@ -26,12 +26,27 @@ namespace ProcessNote
         private readonly string gitHubURI = "https://github.com/cdne/process-note-c-sharp";
         private MainWindow mainWindow;
         private DispatcherTimer _mainWindowTimer;
-        public BrowserView(MainWindow mainWindow, DispatcherTimer _timer)
+        private string _stringSearchEngineSearchQuery;
+        private readonly string bingQuery = "https://www.bing.com/search?q=widnows+process+";
+        public string StringSearchEngineSearchQuery
+        {
+            get { return _stringSearchEngineSearchQuery; }
+            set { _stringSearchEngineSearchQuery = value;  }
+        }
+        public BrowserView(MainWindow mainWindow, DispatcherTimer _timer, string processName)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
             this._mainWindowTimer = _timer;
-            webView.Source = new Uri(gitHubURI);
+            if(processName != "")
+            {
+                StringSearchEngineSearchQuery = bingQuery + processName;
+                webView.Source = new Uri(StringSearchEngineSearchQuery);
+            } else
+            {
+                webView.Source = new Uri(gitHubURI);
+            }
+           
             //_mainWindowTimer.Stop();
         }
 
