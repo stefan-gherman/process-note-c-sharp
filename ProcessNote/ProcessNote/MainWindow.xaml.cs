@@ -28,8 +28,8 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static List<int> browserWindows = new List<int>(); 
         private string sortMethod;
-
         public string SortMethod
         {
             get { return sortMethod; }
@@ -191,11 +191,6 @@ namespace ProcessNote
             
         }
 
-        private void CheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            this.Topmost = this.Topmost ? false : true;
-        }
-
         private CustomProcess GetProcessOnMenuClick(object sender)
         {
             var menuItem = (MenuItem)sender;
@@ -217,6 +212,41 @@ namespace ProcessNote
             {
 
             }
+        }
+        
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = this.Topmost ? false : true;
+        }
+
+        private void webSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            browserViewWindow = new BrowserView(this, _timer, processNameQuery.Text);
+            browserViewWindow.Show();
+            browserWindows.Add(browserViewWindow.GetHashCode());
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (browserViewWindow != null)
+            {
+                browserViewWindow.Close();
+            }
+            _timer.Stop();
+        }
+        
+                private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                CustomProcess customProcess = (CustomProcess)statsSource.SelectedItems[0];
+                processNameQuery.Text = customProcess.Name;
+            } catch (Exception exp)
+            {
+                Console.WriteLine($"Something went wrong {exp}");
+            }
+            
         }
     }  
 }
