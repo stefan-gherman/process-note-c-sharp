@@ -18,6 +18,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using ProcessNote.Views;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace ProcessNote
 {
@@ -33,9 +35,13 @@ namespace ProcessNote
             get { return sortMethod; }
             set { sortMethod = value; }
         }
+        public int RefreshInterval { get; set; }
         private DispatcherTimer _timer;
         public MainWindow()
         {
+            string configKeyRefreshInterval = ConfigurationManager.AppSettings.Get("RefreshInterval");
+            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);
+            
             DataContext = this;
             InitializeComponent();
             CustomProcess.History.Clear();
@@ -60,7 +66,7 @@ namespace ProcessNote
         private void statsSource_Loaded(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 2);
+            _timer.Interval = new TimeSpan(0, 0, RefreshInterval);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
