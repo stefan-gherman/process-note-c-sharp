@@ -90,9 +90,8 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-
-
                     <GridViewColumn x:Name="StartedColumn" Width="160" DisplayMemberBinding="{Binding Started}">
+
                         <GridViewColumnHeader Click="Started_Click">
                             Started
                             <GridViewColumnHeader.ContextMenu>
