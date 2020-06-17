@@ -60,6 +60,10 @@ namespace ProcessNote
             _mainWindowTimer.Start();
         }
 
+        private void webView_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            _mainWindowTimer.Stop();
+        }
     }
     }
 
