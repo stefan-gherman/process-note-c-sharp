@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +17,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
-
+using ProcessNote.Views;
 
 namespace ProcessNote
 {
@@ -26,97 +26,170 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string sortMethod;
+
+        public string SortMethod
+        {
+            get { return sortMethod; }
+            set { sortMethod = value; }
+        }
         private DispatcherTimer _timer;
         private BrowserView browserViewWindow;
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
+            CustomProcess.History.Clear();
             this.Topmost = false;
             List<CustomProcess> stats = new List<CustomProcess>();
-
-
-            stats = populateStats();
-            stats.Sort((x, y) => y.Memory.CompareTo(x.Memory));
-            statsSource.ItemsSource = stats;
-
-
+            sortMethod = "CPUDescending";
+            Console.WriteLine("sortMethod set to: " + sortMethod);
+            //stats = CustomProcess.PopulateStats();
+            //await CustomProcess.PopulateStats();
+            //statsSource.ItemsSource = stats;
+            statsSource.ItemsSource = CustomProcess.Stats;
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private async void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             List<CustomProcess> stats = new List<CustomProcess>();
-
-            stats = populateStats();
-            stats.Sort((x, y) => y.Memory.CompareTo(x.Memory));
-            statsSource.ItemsSource = stats;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        //private void Window_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    _timer = new DispatcherTimer();
-        //    _timer.Interval = new TimeSpan(0, 0, 1);
-        //    _timer.Tick += new EventHandler(dispatcherTimer_Tick);
-        //    _timer.Start();
-        //}
-
-        List<CustomProcess> populateStats()
-        {
-            List<CustomProcess> result = new List<CustomProcess>();
-
-            Process[] remoteAll = Process.GetProcesses();
-            foreach (var item in remoteAll)
-            {
-                int id = item.Id;
-                string name = item.ProcessName;
-                string note = "...";
-
-                int cpu = 0;
-                try
-                {
-                    cpu = Convert.ToInt32(item.TotalProcessorTime);
-                }
-                catch (Exception e)
-                {
-                    cpu = 0;
-                }
-
-                int memory = Convert.ToInt32(item.WorkingSet64);
-
-                string startTime = "00";
-                try
-                {
-                    startTime = Convert.ToString(item.StartTime);
-                }
-                catch (Exception e)
-                {
-                    startTime = "security";
-                }
-
-                int thread = Convert.ToInt32(item.Threads.Count);
-
-                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });
-            }
-
-
-            return result;
+            //stats = CustomProcess.PopulateStats();
+            await CustomProcess.PopulateStats();
+            //statsSource.ItemsSource = Sorter.SortProcesses(stats, sortMethod);
+            statsSource.ItemsSource = Sorter.SortProcesses(CustomProcess.Stats, sortMethod);
         }
 
         private void Window_Loaded_1(object sender, RoutedEventArgs e)
         {
             _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 1);
+            _timer.Interval = new TimeSpan(0, 0, 2);
             _timer.Tick += new EventHandler(dispatcherTimer_Tick);
             _timer.Start();
         }
 
+        private void Name_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Name Header clicked.");
+            if (sortMethod.Equals("NameAscending"))
+            {
+                sortMethod = "NameDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "NameAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
 
+        private void ID_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("ID Header clicked.");
+            if (sortMethod.Equals("IDAscending"))
+            {
+                sortMethod = "IDDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "IDAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Note_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Note Header clicked.");
+            if (sortMethod.Equals("NoteAscending"))
+            {
+                sortMethod = "NoteDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "NoteAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void CPU_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("CPU Header clicked.");
+            if (sortMethod.Equals("CPUAscending"))
+            {
+                sortMethod = "CPUDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "CPUAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Memory_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Memory Header clicked.");
+            if (sortMethod.Equals("MemoryAscending"))
+            {
+                sortMethod = "MemoryDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "MemoryAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Started_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Started Header clicked.");
+            if (sortMethod.Equals("StartedAscending"))
+            {
+                sortMethod = "StartedDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "StartedAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+
+        private void Thread_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Thread Header clicked.");
+            if (sortMethod.Equals("ThreadAscending"))
+            {
+                sortMethod = "ThreadDescending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+            else
+            {
+                sortMethod = "ThreadAscending";
+                Console.WriteLine("sortMethod changed to: " + sortMethod);
+            }
+        }
+        
+        private void ShowThreads_Click(object sender, RoutedEventArgs e)
+        {
+            try 
+            { 
+                var processId = GetProcessOnMenuClick(sender).ID;
+                ThreadsWindow window = new ThreadsWindow(processId);
+                window.Show();
+            }
+            catch (Exception exy)
+            {
+
+            }
+            
+        }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
-           this.Topmost = this.Topmost ? false : true;
+            this.Topmost = this.Topmost ? false : true;
         }
 
         private void webSearchButton_Click(object sender, RoutedEventArgs e)
@@ -135,17 +208,12 @@ namespace ProcessNote
         }
     }
 
-    public class CustomProcess
-    {
-
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Note { get; set; }
-        public int CPU { get; set; }
-        public int Memory { get; set; }
-        public string Started { get; set; }
-        public int Thread { get; set; }
-    }
-
-
+        private CustomProcess GetProcessOnMenuClick(object sender)
+        {
+            var menuItem = (MenuItem)sender;
+            var contextMenu = (ContextMenu)menuItem.Parent;
+            var item = (ListView)contextMenu.PlacementTarget;
+            return (CustomProcess)item.SelectedItem;
+        }
+    }  
 }

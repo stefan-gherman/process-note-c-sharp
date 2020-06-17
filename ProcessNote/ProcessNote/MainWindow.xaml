@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProcessNote"
         mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -16,40 +18,115 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5"/>
             <!--<ColumnDefinition Width="auto"/>-->
-
+            
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
             <!--<RowDefinition Height="auto" />-->
-
+            
             <RowDefinition Height="*" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
-
+        
 
         <ListView Grid.Column="1" Grid.Row="1"
                   Background="DarkGray"
-                  Margin="10" 
+                  Margin="2" 
                   Name="statsSource"
                   >
             <ListView.View>
 
-                <GridView>
-                    <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Note" Width="100" DisplayMemberBinding="{Binding Note}"/>
-                    <GridViewColumn Header="CPU" Width="60" DisplayMemberBinding="{Binding CPU}"/>
-                    <GridViewColumn Header="Memory" Width="100" DisplayMemberBinding="{Binding Memory}"/>
-                    <GridViewColumn Header="Start Time" Width="160" DisplayMemberBinding="{Binding Started}"/>
-                    <GridViewColumn Header="Thread" Width="100" DisplayMemberBinding="{Binding Thread}"/>
+                <GridView AllowsColumnReorder="true">
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding ID}" 
+                      Width="60">
+                        <GridViewColumnHeader Click="ID_Click">ID
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Name}" 
+                      Width="150">
+                        <GridViewColumnHeader Click="Name_Click">Name
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Note}" 
+                      Width="100">
+                        <GridViewColumnHeader Click="Note_Click">Note
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding CPU}" 
+                      Width="60">
+                        <GridViewColumnHeader Click="CPU_Click">CPU
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Memory}" 
+                      Width="100">
+                        <GridViewColumnHeader Click="Memory_Click">Memory
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
+                    
+                    
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Started}" 
+                      Width="160">
+                        <GridViewColumnHeader Click="Started_Click">Started
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
 
+                    <GridViewColumn DisplayMemberBinding=
+                          "{Binding Thread}" 
+                      Width="100">
+                        <GridViewColumnHeader Click="Thread_Click">Thread
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu>
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>
+                    </GridViewColumn>
                 </GridView>
 
-
             </ListView.View>
-
+      
+      <!--  Right click menu  -->
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Click="ShowThreads_Click"
+                        FontSize="13"
+                        Header="Show Threads" />
+                    <Separator />
+                    <MenuItem FontSize="13" Header="Add Comment" />
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
         <CheckBox Content="Always on Top" FontSize="10" Grid.Column="1" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="Auto" Grid.Row="1" Margin="0,0.2,42.8,0" Click="CheckBox_Click" />
         <Button Name="webSearchButton" Content="Search Online" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1" Margin="0,0.2,143.8,0" Height="Auto" Width="Auto" Grid.Row="1" Click="webSearchButton_Click"/>
