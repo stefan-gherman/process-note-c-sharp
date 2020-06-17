@@ -15,8 +15,9 @@
         Title="Online Help" Height="450" Width="800" Closed="Window_Closed" >
     <Grid>
         <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48">Loading Web View</TextBlock>-->
-        <DockPanel>
-            <wv2:WebView2 Name="webView"></wv2:WebView2>
+        <DockPanel Margin="0,28,-0.4,0">
+           
+                <wv2:WebView2 Name="webView"></wv2:WebView2>
         </DockPanel>
     </Grid>
 </Window>
