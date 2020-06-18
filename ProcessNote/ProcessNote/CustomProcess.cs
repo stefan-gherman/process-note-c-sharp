@@ -30,17 +30,18 @@ namespace ProcessNote
         public static async Task PopulateStats()
         {
             List<CustomProcess> result = new List<CustomProcess>();
-            Process[] remoteAll = await Task.Run(() => Process.GetProcesses());
+            Process[] remoteAll = Process.GetProcesses();
             Parallel.ForEach(remoteAll, item =>
             {
-                processItemAndAddToResult(item, result);
+                CustomProcess customItem = processItemForResult(item);
+                result.Add(customItem);
             });
             
             Stats = result;
             populateHistory(result);
         }
 
-        private static void processItemAndAddToResult(Process item, List<CustomProcess> result)
+        private static CustomProcess processItemForResult(Process item)
         {
             // Some data is not accessible due to security, simulations in place
             long cpu = 0;
@@ -66,7 +67,7 @@ namespace ProcessNote
                 //Console.WriteLine(e.Message);
                 startTime = "6/15/2020 8:45:61 PM";
             }
-            result.Add(new CustomProcess()
+            return new CustomProcess()
             {
                 ID = item.Id,
                 Name = item.ProcessName,
@@ -75,7 +76,7 @@ namespace ProcessNote
                 Memory = Convert.ToInt32(item.WorkingSet64),
                 Started = startTime,
                 Thread = Convert.ToInt32(item.Threads.Count)
-            });
+            };
         }
 
         /// <summary>
