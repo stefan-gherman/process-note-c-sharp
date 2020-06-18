@@ -16,7 +16,7 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    mc:Ignorable="d" Loaded="Window_Loaded">
+    mc:Ignorable="d" Loaded="Window_Loaded" Closed="Window_Closed_1">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -203,6 +203,36 @@
             IsReadOnly="True"
             TextAlignment="Center"
             TextWrapping="Wrap" />
+        <Button
+            x:Name="performanceViewer"
+            Grid.Column="1"
+            Width="41"
+            Height="17"
+            Margin="0,1.2,331.8,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            FontSize="10" Grid.Row="1" Click="performanceViewer_Click">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+
+                <TextBlock
+                    
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="-8,-1,-10.8,-0.4"
+                    Text="Stats" HorizontalAlignment="Center" Width="28" Grid.RowSpan="2"/>
+
+            </Grid>
+        </Button>
 
 
     </Grid>

@@ -1,5 +1,6 @@
 using ProcessNote.Views;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Windows;
@@ -14,9 +15,17 @@ namespace ProcessNote
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static List<int> browserWindows = new List<int>();
+        public static ConcurrentDictionary<int, BrowserView> openBrowserWindows = new ConcurrentDictionary<int, BrowserView>();
         private string sortMethod;
         private BrowserView browserViewWindow;
+        private bool _parseError = false;
+        private StatsWindow statsWindow;
+
+        public bool ParseError
+        {
+            get { return _parseError; }
+            set { _parseError = value; }
+        }
 
         public string SortMethod
         {
@@ -245,18 +254,20 @@ namespace ProcessNote
         private void webSearchButton_Click(object sender, RoutedEventArgs e)
         {
             browserViewWindow = new BrowserView(this, _timer, processNameQuery.Text);
-            browserViewWindow.Show();
-            browserWindows.Add(browserViewWindow.GetHashCode());
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            if (browserViewWindow != null)
+            
+            if (ParseError)
             {
                 browserViewWindow.Close();
             }
-            _timer.Stop();
+            else
+            {
+                browserViewWindow.Show();
+            }
+            ParseError = false;
+            openBrowserWindows.TryAdd(browserViewWindow.GetHashCode(), browserViewWindow);
         }
+
+
 
         private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -269,6 +280,26 @@ namespace ProcessNote
             {
                 Console.WriteLine($"Something went wrong");
             }
+        }
+
+        private void Window_Closed_1(object sender, EventArgs e)
+        {
+            if(statsWindow != null)
+            {
+                statsWindow.Close();
+            }
+            foreach (BrowserView view in openBrowserWindows.Values)
+            {
+                view.Close();
+            }
+            _timer.Stop();
+        }
+
+        private void performanceViewer_Click(object sender, RoutedEventArgs e)
+        {
+            StatsWindow statsWindow = new StatsWindow(this, _timer);
+            this.statsWindow = statsWindow;
+            statsWindow.Show();
         }
     }
 
