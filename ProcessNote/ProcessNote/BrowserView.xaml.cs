@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -75,6 +75,7 @@ namespace ProcessNote
                 _mainWindowTimer.Start();
 
             }
+            webView = null;
 
         }
 
@@ -152,6 +153,12 @@ namespace ProcessNote
 
             }
            
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            webView.Stop();
+            webView = null;
         }
     }
 }

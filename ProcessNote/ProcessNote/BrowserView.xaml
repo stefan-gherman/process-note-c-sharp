@@ -13,7 +13,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="Online Help" Height="450" Width="800" Closed="Window_Closed" >
+        Title="Online Help" Height="450" Width="800" Closed="Window_Closed" Closing="Window_Closing" >
     <Grid>
         <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48">Loading Web View</TextBlock>-->
         <Button Name="backwardButton"  VerticalAlignment="Top" HorizontalAlignment="Left"   IsEnabled="False" Height="28" Width="63" Margin="10,4,0,0" Click="backwardButton_Click">
