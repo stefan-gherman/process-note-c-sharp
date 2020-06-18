@@ -31,42 +31,51 @@ namespace ProcessNote
         {
             List<CustomProcess> result = new List<CustomProcess>();
             Process[] remoteAll = await Task.Run(() => Process.GetProcesses());
-            foreach (var item in remoteAll)
+            Parallel.ForEach(remoteAll, item =>
             {
-                // Some data is not accessible due to security, simulations in place
-                long cpu = 0;
-                if (History.Count() <= 0)
-                {
-                    Random randomPercent = new Random();
-                    cpu = randomPercent.Next(5, 17);
-                }
-                else
-                {
-                    Random randomPositiveNegative = new Random();
-                    var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
-                    int randomPercent = values[randomPositiveNegative.Next(values.Length)];
-                    cpu = findPreviousCPUValue(item.Id) + randomPercent;
-                }
-                string startTime = "00";
-                try
-                {
-                    startTime = Convert.ToString(item.StartTime);
-                }
-                catch (Exception e)
-                {
-                    //Console.WriteLine(e.Message);
-                    startTime = "6/15/2020 8:45:61 PM";
-                }
-                result.Add(new CustomProcess() { ID = item.Id, 
-                                                 Name = item.ProcessName, 
-                                                 Note = verifyNote(item.Id), 
-                                                 CPU = cpu, 
-                                                 Memory = Convert.ToInt32(item.WorkingSet64), 
-                                                 Started = startTime, 
-                                                 Thread = Convert.ToInt32(item.Threads.Count) });
-            }
+                processItemAndAddToResult(item, result);
+            });
+            
             Stats = result;
             populateHistory(result);
+        }
+
+        private static void processItemAndAddToResult(Process item, List<CustomProcess> result)
+        {
+            // Some data is not accessible due to security, simulations in place
+            long cpu = 0;
+            if (History.Count() <= 0)
+            {
+                Random randomPercent = new Random();
+                cpu = randomPercent.Next(5, 17);
+            }
+            else
+            {
+                Random randomPositiveNegative = new Random();
+                var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
+                int randomPercent = values[randomPositiveNegative.Next(values.Length)];
+                cpu = findPreviousCPUValue(item.Id) + randomPercent;
+            }
+            string startTime = "00";
+            try
+            {
+                startTime = Convert.ToString(item.StartTime);
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine(e.Message);
+                startTime = "6/15/2020 8:45:61 PM";
+            }
+            result.Add(new CustomProcess()
+            {
+                ID = item.Id,
+                Name = item.ProcessName,
+                Note = verifyNote(item.Id),
+                CPU = cpu,
+                Memory = Convert.ToInt32(item.WorkingSet64),
+                Started = startTime,
+                Thread = Convert.ToInt32(item.Threads.Count)
+            });
         }
 
         /// <summary>
