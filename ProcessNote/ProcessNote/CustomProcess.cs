@@ -33,10 +33,45 @@ namespace ProcessNote
             Process[] remoteAll = Process.GetProcesses();
             Parallel.ForEach(remoteAll, item =>
             {
+<<<<<<< HEAD
                 CustomProcess customItem = processItemForResult(item);
                 result.Add(customItem);
             });
             
+=======
+                // Some data is not accessible due to security, simulations in place
+                long cpu = 0;
+                if (History.Count() <= 0)
+                {
+                    Random randomPercent = new Random();
+                    cpu = randomPercent.Next(5, 17);
+                }
+                else
+                {
+                    Random randomPositiveNegative = new Random();
+                    var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
+                    int randomPercent = values[randomPositiveNegative.Next(values.Length)];
+                    cpu = findPreviousCPUValue(item.Id) + randomPercent;
+                }
+                string startTime = "00";
+                try
+                {
+                    startTime = Convert.ToString(item.StartTime);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    startTime = "6/15/2020 8:45:61 PM";
+                }
+                result.Add(new CustomProcess() { ID = item.Id, 
+                                                 Name = item.ProcessName, 
+                                                 Note = verifyNote(item.Id), 
+                                                 CPU = cpu, 
+                                                 Memory = Convert.ToInt32(item.WorkingSet64), 
+                                                 Started = startTime, 
+                                                 Thread = Convert.ToInt32(item.Threads.Count) });
+            }
+>>>>>>> parent of 54909e9... Refactor - replace try/catch with if on dictionary checks
             Stats = result;
             populateHistory(result);
         }
@@ -87,9 +122,13 @@ namespace ProcessNote
         private static string verifyNote(int id)
         {
             string note = "...";
-            if (Notes.ContainsKey(id))
+            try
             {
                 note = Notes[id];
+            }
+            catch(Exception exa)
+            {
+                Console.WriteLine(exa.Message);
             }
             return note;
         }
@@ -104,14 +143,15 @@ namespace ProcessNote
         {
             foreach (var item in result)
             {
-                if (History.ContainsKey(item.ID))
-                {
-                    History[item.ID] = item.CPU;
-                }
-                else
+                try
                 {
                     History.Add(item.ID, item.CPU);
                 }
+                catch (Exception He)
+                {
+                    Console.WriteLine(He.Message);
+                    History[item.ID] = item.CPU;
+                }          
             }
             Console.WriteLine("history populated");
             return true;
@@ -126,9 +166,14 @@ namespace ProcessNote
         private static long findPreviousCPUValue(int id)
         {
             long tempResult = 0;
-            if (History.ContainsKey(id))
+            try
             {
                 tempResult = History[id];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                tempResult = 0;
             }
             return tempResult;
         }
