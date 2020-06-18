@@ -30,16 +30,13 @@ namespace ProcessNote
         public MainWindow()
         {
             string configKeyRefreshInterval = ConfigurationManager.AppSettings.Get("RefreshInterval");
-            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);  
+            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);
             DataContext = this;
             InitializeComponent();
             CustomProcess.History.Clear();
             List<CustomProcess> stats = new List<CustomProcess>();
             sortMethod = "CPUDescending";
             Console.WriteLine("sortMethod set to: " + sortMethod);
-            //stats = CustomProcess.PopulateStats();
-            //await CustomProcess.PopulateStats();
-            //statsSource.ItemsSource = stats;
             statsSource.ItemsSource = CustomProcess.Stats;
         }
 
@@ -213,6 +210,7 @@ namespace ProcessNote
             }
             catch (Exception exy)
             {
+                Console.WriteLine(exy.Message);
             }
         }
 
@@ -235,6 +233,7 @@ namespace ProcessNote
             }
             catch (Exception exy)
             {
+                Console.WriteLine(exy.Message);
             }
         }
 

@@ -23,18 +23,18 @@ namespace ProcessNote
         public static Dictionary<int, long> History = new Dictionary<int, long>();
         public static Dictionary<int, string> Notes = new Dictionary<int, string>();
 
+        /// <summary>
+        /// Populates the list of Custom Processes 'Stats' used by xaml for display 
+        /// </summary>
+        /// <returns></returns>
         public static async Task PopulateStats()
         {
             List<CustomProcess> result = new List<CustomProcess>();
             Process[] remoteAll = await Task.Run(() => Process.GetProcesses());
             foreach (var item in remoteAll)
             {
-                int id = item.Id;
-                string name = item.ProcessName;
-                string note = verifyNote(id);
-                // CPU custom generation process
-
-                long cpu = 0;              
+                // Some data is not accessible due to security, simulations in place
+                long cpu = 0;
                 if (History.Count() <= 0)
                 {
                     Random randomPercent = new Random();
@@ -45,11 +45,8 @@ namespace ProcessNote
                     Random randomPositiveNegative = new Random();
                     var values = new[] { 2, -2, 1, -1, 1, 1, 1, -1, -1, -1 };
                     int randomPercent = values[randomPositiveNegative.Next(values.Length)];
-                    cpu = findPreviousCPUValue(History, id) + randomPercent;
-                }             
-
-                int memory = Convert.ToInt32(item.WorkingSet64);
-
+                    cpu = findPreviousCPUValue(item.Id) + randomPercent;
+                }
                 string startTime = "00";
                 try
                 {
@@ -57,68 +54,76 @@ namespace ProcessNote
                 }
                 catch (Exception e)
                 {
+                    //Console.WriteLine(e.Message);
                     startTime = "6/15/2020 8:45:61 PM";
                 }
-
-                int thread = Convert.ToInt32(item.Threads.Count);
-
-                result.Add(new CustomProcess() { ID = id, Name = name, Note = note, CPU = cpu, Memory = memory, Started = startTime, Thread = thread });
-
-
+                result.Add(new CustomProcess()
+                {
+                    ID = item.Id,
+                    Name = item.ProcessName,
+                    Note = verifyNote(item.Id),
+                    CPU = cpu,
+                    Memory = Convert.ToInt32(item.WorkingSet64),
+                    Started = startTime,
+                    Thread = Convert.ToInt32(item.Threads.Count)
+                });
             }
             Stats = result;
-            History = populateHistory(result);
-
-
-            //return result;
+            populateHistory(result);
         }
 
+        /// <summary>
+        /// Checks if there is a note for the process ID in the Notes and returns the text
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private static string verifyNote(int id)
         {
             string note = "...";
-            try
+            if (Notes.ContainsKey(id))
             {
                 note = Notes[id];
-            }
-            catch(Exception exa)
-            {
-
             }
             return note;
         }
 
-        private static Dictionary<int, long> populateHistory(List<CustomProcess> result)
+        /// <summary>
+        /// Populates the 'History' dictionary. It is a Dictionary that holds
+        /// the previous tick CPU data so it can be incremented by the simulation
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        private static bool populateHistory(List<CustomProcess> result)
         {
-            Dictionary<int, long> history = new Dictionary<int, long>();
             foreach (var item in result)
             {
-                history.Add(item.ID, item.CPU);
+                if (History.ContainsKey(item.ID))
+                {
+                    History[item.ID] = item.CPU;
+                }
+                else
+                {
+                    History.Add(item.ID, item.CPU);
+                }
             }
             Console.WriteLine("history populated");
-            return history;
+            return true;
         }
 
-        private static long findPreviousCPUValue(Dictionary<int, long> history, int id)
+        /// <summary>
+        /// Retrieves from the 'History' dictionary the previous tick CPU data by 
+        /// process ID. Used by the CPU simulation mechanism.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private static long findPreviousCPUValue(int id)
         {
             long tempResult = 0;
-            try
+            if (History.ContainsKey(id))
             {
-                tempResult = history[id];
-                //Console.WriteLine("value history found" + tempResult);
-            }
-            catch (Exception e)
-            {
-                tempResult = 0;
+                tempResult = History[id];
             }
             return tempResult;
         }
-
-
-
-
     }
-
-
-
-
 }
