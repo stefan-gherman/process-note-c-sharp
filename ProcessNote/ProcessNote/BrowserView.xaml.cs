@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -41,8 +41,19 @@ namespace ProcessNote
             this._mainWindowTimer = _timer;
             if (processName != "")
             {
-                StringSearchEngineSearchQuery = bingQuery + processName;
-                webView.Source = new Uri(StringSearchEngineSearchQuery);
+                StringSearchEngineSearchQuery = searchEngineSelection(processName);
+                try 
+                {
+                    webView.Source = new Uri(StringSearchEngineSearchQuery);
+                    mainWindow.ParseError = false;
+                } catch(UriFormatException ex)
+                {
+                    BrowserView wasRemoved;
+                    MessageBox.Show("Url Parse Error, check App.config to make sure the right values are stored.");
+                    MainWindow.openBrowserWindows.TryRemove(this.GetHashCode(), out wasRemoved);
+                    mainWindow.ParseError = true;
+                }
+                
             }
             else
             {
