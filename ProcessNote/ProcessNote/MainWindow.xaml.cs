@@ -18,6 +18,13 @@ namespace ProcessNote
         public static ConcurrentDictionary<int, BrowserView> openBrowserWindows = new ConcurrentDictionary<int, BrowserView>();
         private string sortMethod;
         private BrowserView browserViewWindow;
+        private bool _parseError = false;
+
+        public bool ParseError
+        {
+            get { return _parseError; }
+            set { _parseError = value; }
+        }
 
         public string SortMethod
         {
@@ -31,7 +38,7 @@ namespace ProcessNote
         public MainWindow()
         {
             string configKeyRefreshInterval = ConfigurationManager.AppSettings.Get("RefreshInterval");
-            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);  
+            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);
             DataContext = this;
             InitializeComponent();
             CustomProcess.History.Clear();
@@ -244,11 +251,20 @@ namespace ProcessNote
         private void webSearchButton_Click(object sender, RoutedEventArgs e)
         {
             browserViewWindow = new BrowserView(this, _timer, processNameQuery.Text);
-            browserViewWindow.Show();
+            
+            if (ParseError)
+            {
+                browserViewWindow.Close();
+            }
+            else
+            {
+                browserViewWindow.Show();
+            }
+            ParseError = false;
             openBrowserWindows.TryAdd(browserViewWindow.GetHashCode(), browserViewWindow);
         }
 
-        
+
 
         private void statsSource_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
