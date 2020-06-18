@@ -22,7 +22,7 @@ namespace ProcessNote
         public static List<CustomProcess> Stats { get; set; }
         public static Dictionary<int, long> History = new Dictionary<int, long>();
         public static Dictionary<int, string> Notes = new Dictionary<int, string>();
-        
+
         /// <summary>
         /// Populates the list of Custom Processes 'Stats' used by xaml for display 
         /// </summary>
@@ -54,16 +54,19 @@ namespace ProcessNote
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    //Console.WriteLine(e.Message);
                     startTime = "6/15/2020 8:45:61 PM";
                 }
-                result.Add(new CustomProcess() { ID = item.Id, 
-                                                 Name = item.ProcessName, 
-                                                 Note = verifyNote(item.Id), 
-                                                 CPU = cpu, 
-                                                 Memory = Convert.ToInt32(item.WorkingSet64), 
-                                                 Started = startTime, 
-                                                 Thread = Convert.ToInt32(item.Threads.Count) });
+                result.Add(new CustomProcess()
+                {
+                    ID = item.Id,
+                    Name = item.ProcessName,
+                    Note = verifyNote(item.Id),
+                    CPU = cpu,
+                    Memory = Convert.ToInt32(item.WorkingSet64),
+                    Started = startTime,
+                    Thread = Convert.ToInt32(item.Threads.Count)
+                });
             }
             Stats = result;
             populateHistory(result);
@@ -77,13 +80,9 @@ namespace ProcessNote
         private static string verifyNote(int id)
         {
             string note = "...";
-            try
+            if (Notes.ContainsKey(id))
             {
                 note = Notes[id];
-            }
-            catch(Exception exa)
-            {
-                Console.WriteLine(exa.Message);
             }
             return note;
         }
@@ -98,15 +97,14 @@ namespace ProcessNote
         {
             foreach (var item in result)
             {
-                try
+                if (History.ContainsKey(item.ID))
+                {
+                    History[item.ID] = item.CPU;
+                }
+                else
                 {
                     History.Add(item.ID, item.CPU);
                 }
-                catch (Exception He)
-                {
-                    Console.WriteLine(He.Message);
-                    History[item.ID] = item.CPU;
-                }          
             }
             Console.WriteLine("history populated");
             return true;
@@ -121,14 +119,9 @@ namespace ProcessNote
         private static long findPreviousCPUValue(int id)
         {
             long tempResult = 0;
-            try
+            if (History.ContainsKey(id))
             {
                 tempResult = History[id];
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                tempResult = 0;
             }
             return tempResult;
         }
