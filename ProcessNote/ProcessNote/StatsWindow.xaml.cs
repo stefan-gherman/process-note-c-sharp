@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Windows.System.Diagnostics;
 using System.Diagnostics;
+using System.Windows.Controls.DataVisualization.Charting;
 
 namespace ProcessNote
 {
@@ -26,9 +27,9 @@ namespace ProcessNote
         private DispatcherTimer _mainWindowTimer;
         private MainWindow mainWindow;
         private DispatcherTimer _currentTimer;
-        private PerformanceCounter cpuVals = new PerformanceCounter("Processor", "% Processor Time", "_Total"); 
+        private PerformanceCounter cpuVals = new PerformanceCounter("Processor", "% Processor Time", "_Total");
         private PerformanceCounter ramVals = new PerformanceCounter("Memory", "% Committed Bytes In Use");
-        
+
 
         public StatsWindow(MainWindow mainWindow, DispatcherTimer timer)
         {
@@ -52,6 +53,11 @@ namespace ProcessNote
             cpuBarText.Text = $"{cpuBar.Value}%";
             ramBar.Value = (int)ramVals.NextValue();
             ramBarText.Text = $"{ramBar.Value}%";
+            ((ColumnSeries)mcChart.Series[0]).ItemsSource =
+       new KeyValuePair<string, double>[]{
+            new KeyValuePair<string, double>("CPU", cpuBar.Value),
+            new KeyValuePair<string, double>("RAM", ramBar.Value),
+           };
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -60,6 +66,10 @@ namespace ProcessNote
             _currentTimer.Interval = new TimeSpan(0, 0, 1);
             _currentTimer.Tick += new EventHandler(currentTimer_Tick);
             _currentTimer.Start();
+            
+           
+
+
         }
 
         private void Window_DragEnter(object sender, DragEventArgs e)
