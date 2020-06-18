@@ -54,7 +54,7 @@ namespace ProcessNote
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    //Console.WriteLine(e.Message);
                     startTime = "6/15/2020 8:45:61 PM";
                 }
                 result.Add(new CustomProcess() { ID = item.Id, 
@@ -77,13 +77,9 @@ namespace ProcessNote
         private static string verifyNote(int id)
         {
             string note = "...";
-            try
+            if (Notes.ContainsKey(id))
             {
                 note = Notes[id];
-            }
-            catch(Exception exa)
-            {
-                Console.WriteLine(exa.Message);
             }
             return note;
         }
@@ -98,15 +94,14 @@ namespace ProcessNote
         {
             foreach (var item in result)
             {
-                try
+                if (History.ContainsKey(item.ID))
+                {
+                    History[item.ID] = item.CPU;
+                }
+                else
                 {
                     History.Add(item.ID, item.CPU);
                 }
-                catch (Exception He)
-                {
-                    Console.WriteLine(He.Message);
-                    History[item.ID] = item.CPU;
-                }          
             }
             Console.WriteLine("history populated");
             return true;
@@ -121,14 +116,9 @@ namespace ProcessNote
         private static long findPreviousCPUValue(int id)
         {
             long tempResult = 0;
-            try
+            if (History.ContainsKey(id))
             {
                 tempResult = History[id];
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                tempResult = 0;
             }
             return tempResult;
         }

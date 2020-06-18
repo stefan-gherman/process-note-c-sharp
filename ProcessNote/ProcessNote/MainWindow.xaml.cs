@@ -210,6 +210,7 @@ namespace ProcessNote
             }
             catch (Exception exy)
             {
+                Console.WriteLine(exy.Message);
             }
         }
 
@@ -232,6 +233,7 @@ namespace ProcessNote
             }
             catch (Exception exy)
             {
+                Console.WriteLine(exy.Message);
             }
         }
 
