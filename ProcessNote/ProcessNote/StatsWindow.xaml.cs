@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Windows.System.Diagnostics;
+using System.Diagnostics;
 
 namespace ProcessNote
 {
@@ -20,19 +22,15 @@ namespace ProcessNote
     /// </summary>
     public partial class StatsWindow : Window
     {
-        private static StatsWindow instance;
+
         private DispatcherTimer _mainWindowTimer;
         private MainWindow mainWindow;
-        public  static StatsWindow GetInstance(MainWindow mainWindow, DispatcherTimer timer)
-        {
-            if (instance == null)
-            {
-                instance = new StatsWindow(mainWindow, timer);                    
-            }
-            
-            return instance;
-        }
-        private StatsWindow(MainWindow mainWindow, DispatcherTimer timer)
+        private DispatcherTimer _currentTimer;
+        private PerformanceCounter cpuVals = new PerformanceCounter("Processor", "% Processor Time", "_Total"); 
+        private PerformanceCounter ramVals = new PerformanceCounter("Memory", "% Committed Bytes In Use");
+        
+
+        public StatsWindow(MainWindow mainWindow, DispatcherTimer timer)
         {
             this.mainWindow = mainWindow;
             _mainWindowTimer = timer;
