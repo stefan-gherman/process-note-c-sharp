@@ -19,6 +19,7 @@ namespace ProcessNote
         private string sortMethod;
         private BrowserView browserViewWindow;
         private bool _parseError = false;
+        private StatsWindow statsWindow;
 
         public bool ParseError
         {
@@ -281,6 +282,10 @@ namespace ProcessNote
 
         private void Window_Closed_1(object sender, EventArgs e)
         {
+            if(statsWindow != null)
+            {
+                statsWindow.Close();
+            }
             foreach (BrowserView view in openBrowserWindows.Values)
             {
                 view.Close();
@@ -290,7 +295,9 @@ namespace ProcessNote
 
         private void performanceViewer_Click(object sender, RoutedEventArgs e)
         {
-
+            StatsWindow statsWindow = new StatsWindow(this, _timer);
+            this.statsWindow = statsWindow;
+            statsWindow.Show();
         }
     }
 
