@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,8 +43,40 @@ namespace ProcessNote
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            _currentTimer.Stop();
             _mainWindowTimer.Start();
             mainWindow.performanceViewer.IsEnabled = true;
+        }
+
+        private void currentTimer_Tick(object sender, EventArgs e)
+        {
+            cpuBar.Value = (int)cpuVals.NextValue();
+            cpuBarText.Text = $"{cpuBar.Value}%";
+            ramBar.Value = (int)ramVals.NextValue();
+            ramBarText.Text = $"{ramBar.Value}%";
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _mainWindowTimer.Stop();
+            _currentTimer = new DispatcherTimer();
+            _currentTimer.Interval = new TimeSpan(0, 0, 1);
+            _currentTimer.Tick += new EventHandler(currentTimer_Tick);
+            _currentTimer.Start();
+        }
+
+        private void Window_DragEnter(object sender, DragEventArgs e)
+        {
+            _currentTimer.Stop();
+        }
+
+        private void Window_DragLeave(object sender, DragEventArgs e)
+        {
+            _currentTimer.Start();
+        }
+
+        private void Window_DragOver(object sender, DragEventArgs e)
+        {
+            _currentTimer.Start();
         }
     }
 }
