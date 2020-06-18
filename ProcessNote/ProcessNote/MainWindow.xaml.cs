@@ -287,6 +287,11 @@ namespace ProcessNote
             }
             _timer.Stop();
         }
+
+        private void performanceViewer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }
