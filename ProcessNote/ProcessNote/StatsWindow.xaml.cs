@@ -53,11 +53,8 @@ namespace ProcessNote
             cpuBarText.Text = $"{cpuBar.Value}%";
             ramBar.Value = (int)ramVals.NextValue();
             ramBarText.Text = $"{ramBar.Value}%";
-            ((ColumnSeries)mcChart.Series[0]).ItemsSource =
-       new KeyValuePair<string, double>[]{
-            new KeyValuePair<string, double>("CPU", cpuBar.Value),
-            new KeyValuePair<string, double>("RAM", ramBar.Value),
-           };
+            
+        
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

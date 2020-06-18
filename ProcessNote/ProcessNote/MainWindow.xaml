@@ -10,13 +10,15 @@
     Width="800"
     Height="450"
     Background="{DynamicResource MaterialDesignPaper}"
+    Closed="Window_Closed_1"
     FontFamily="{DynamicResource MaterialDesignFont}"
+    Loaded="Window_Loaded"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    mc:Ignorable="d" Loaded="Window_Loaded" Closed="Window_Closed_1">
+    mc:Ignorable="d">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,21 +28,20 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="*" />
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
         <ListView
             Name="statsSource"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             Margin="2"
             Background="DarkGray"
             Loaded="statsSource_Loaded"
             MouseLeftButtonUp="statsSource_MouseLeftButtonUp">
             <ListView.View>
-                <GridView 
-                    x:Name="GridViewMain" 
-                    AllowsColumnReorder="true">
+                <GridView x:Name="GridViewMain" AllowsColumnReorder="true">
                     <GridViewColumn
                         x:Name="IDColumn"
                         Width="60"
@@ -52,9 +53,9 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn 
-                        x:Name="NameColumn" 
-                        Width="150" 
+                    <GridViewColumn
+                        x:Name="NameColumn"
+                        Width="150"
                         DisplayMemberBinding="{Binding Name}">
                         <GridViewColumnHeader Click="Name_Click">
                             Name
@@ -63,9 +64,9 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn 
+                    <GridViewColumn
                         x:Name="NoteColumn"
-                        Width="100" 
+                        Width="100"
                         DisplayMemberBinding="{Binding Note}">
                         <GridViewColumnHeader Click="Note_Click">
                             Note
@@ -74,9 +75,9 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn 
-                        x:Name="CPUColumn" 
-                        Width="60" 
+                    <GridViewColumn
+                        x:Name="CPUColumn"
+                        Width="60"
                         DisplayMemberBinding="{Binding CPU}">
                         <GridViewColumnHeader Click="CPU_Click">
                             CPU
@@ -85,9 +86,9 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn 
-                        x:Name="MemoryColumn" 
-                        Width="100" 
+                    <GridViewColumn
+                        x:Name="MemoryColumn"
+                        Width="100"
                         DisplayMemberBinding="{Binding Memory}">
                         <GridViewColumnHeader Click="Memory_Click">
                             Memory
@@ -96,9 +97,9 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn 
-                        x:Name="StartedColumn" 
-                        Width="160" 
+                    <GridViewColumn
+                        x:Name="StartedColumn"
+                        Width="160"
                         DisplayMemberBinding="{Binding Started}">
                         <GridViewColumnHeader Click="Started_Click">
                             Started
@@ -107,9 +108,9 @@
                             </GridViewColumnHeader.ContextMenu>
                         </GridViewColumnHeader>
                     </GridViewColumn>
-                    <GridViewColumn 
-                        x:Name="ThreadColumn" 
-                        Width="100" 
+                    <GridViewColumn
+                        x:Name="ThreadColumn"
+                        Width="100"
                         DisplayMemberBinding="{Binding Thread}">
                         <GridViewColumnHeader Click="Thread_Click">
                             Thread
@@ -205,18 +206,20 @@
             TextWrapping="Wrap" />
         <Button
             x:Name="performanceViewer"
+            Grid.Row="1"
             Grid.Column="1"
             Width="41"
             Height="17"
             Margin="0,1.2,331.8,0"
-            HorizontalAlignment="Right"
+            HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            FontSize="10" Grid.Row="1" Click="performanceViewer_Click">
+            Click="performanceViewer_Click"
+            FontSize="10">
 
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -225,11 +228,13 @@
 
 
                 <TextBlock
-                    
+                    Grid.RowSpan="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
+                    Width="28"
                     Margin="-8,-1,-10.8,-0.4"
-                    Text="Stats" HorizontalAlignment="Center" Width="28" Grid.RowSpan="2"/>
+                    HorizontalAlignment="Center"
+                    Text="Live" />
 
             </Grid>
         </Button>
