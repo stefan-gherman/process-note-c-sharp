@@ -30,7 +30,7 @@ namespace ProcessNote
         public MainWindow()
         {
             string configKeyRefreshInterval = ConfigurationManager.AppSettings.Get("RefreshInterval");
-            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);  
+            RefreshInterval = Convert.ToInt32(configKeyRefreshInterval);
             DataContext = this;
             InitializeComponent();
             CustomProcess.History.Clear();
@@ -210,6 +210,7 @@ namespace ProcessNote
             }
             catch (Exception exy)
             {
+                Console.WriteLine(exy.Message);
             }
         }
 
@@ -232,6 +233,7 @@ namespace ProcessNote
             }
             catch (Exception exy)
             {
+                Console.WriteLine(exy.Message);
             }
         }
 
