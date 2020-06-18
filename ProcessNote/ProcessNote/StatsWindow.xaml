@@ -9,24 +9,24 @@
         xmlns:xrpb="http://XamlRadialProgressBar/DotNet"
         
         mc:Ignorable="d"
-        Title="Stats" Height="800" Width="900" ResizeMode="CanMinimize" Closed="Window_Closed">
+        Title="Stats" Height="800" Width="900" ResizeMode="CanMinimize" Closed="Window_Closed" Loaded="Window_Loaded" DragEnter="Window_DragEnter" DragLeave="Window_DragLeave" DragOver="Window_DragOver">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <xrpb:RadialProgressBar VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                Height="271" Width="301"  ArcWidth="20" Value="90"  
+        <xrpb:RadialProgressBar Name="cpuBar" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                Height="271" Width="301"  ArcWidth="20" Value="0"  
                                 ArcDirection="Counterclockwise" ArcRotationDegree="90"
                                 Foreground="Purple" OuterBackgroundBrush="White" InnerBackgroundBrush="Purple" Margin="91,46,501.6,453.4"/>
         <TextBlock Text="CPU"  HorizontalAlignment="Center"  Foreground="White" FontSize="40" TextWrapping="Wrap" TextAlignment="Center" Margin="190,122,606.6,580.4" Width="97"/>
-        <TextBlock Text="20%"  HorizontalAlignment="Center"  Foreground="White" FontSize="40" TextWrapping="Wrap" TextAlignment="Center" Margin="175,165,587.6,544.4" Width="131"/>
+        <TextBlock Name="cpuBarText" Text="0%"  HorizontalAlignment="Center"  Foreground="White" FontSize="40" TextWrapping="Wrap" TextAlignment="Center" Margin="175,165,587.6,544.4" Width="131"/>
         
-        <xrpb:RadialProgressBar VerticalAlignment="Center" HorizontalAlignment="Center" 
+        <xrpb:RadialProgressBar Name="ramBar"  VerticalAlignment="Center" HorizontalAlignment="Center" 
             Height="271" Width="301"  ArcWidth="20" Value="90"  
             ArcDirection="Counterclockwise" ArcRotationDegree="90"
             Foreground="Purple" OuterBackgroundBrush="White" InnerBackgroundBrush="Purple" Margin="510,46,82.6,453.4"/>
         <TextBlock Text="RAM"  HorizontalAlignment="Center"  Foreground="White" FontSize="40" TextWrapping="Wrap" TextAlignment="Center" Margin="610,122,186.6,580.4" Width="97"/>
-        <TextBlock Text="20%"  HorizontalAlignment="Center"  Foreground="White" FontSize="40" TextWrapping="Wrap" TextAlignment="Center" Margin="594,165,168.6,544.4" Width="131"/>
+        <TextBlock Name="ramBarText"  Text="20%"  HorizontalAlignment="Center"  Foreground="White" FontSize="40" TextWrapping="Wrap" TextAlignment="Center" Margin="594,165,168.6,544.4" Width="131"/>
     </Grid>
 </Window>
