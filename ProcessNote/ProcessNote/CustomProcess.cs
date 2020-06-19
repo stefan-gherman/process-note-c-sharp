@@ -16,9 +16,9 @@ namespace ProcessNote
         public string Name { get; set; }
         public string Note { get; set; }
         public long CPU { get; set; }
-        public int Memory { get; set; }
+        public long Memory { get; set; }
         public string Started { get; set; }
-        public int Thread { get; set; }
+        public long Thread { get; set; }
         public static List<CustomProcess> Stats { get; set; }
         public static Dictionary<int, long> History = new Dictionary<int, long>();
         public static Dictionary<int, string> Notes = new Dictionary<int, string>();
@@ -63,9 +63,9 @@ namespace ProcessNote
                     Name = item.ProcessName,
                     Note = verifyNote(item.Id),
                     CPU = cpu,
-                    Memory = Convert.ToInt32(item.WorkingSet64),
+                    Memory = Convert.ToInt64(item.WorkingSet64),
                     Started = startTime,
-                    Thread = Convert.ToInt32(item.Threads.Count)
+                    Thread = Convert.ToInt64(item.Threads.Count)
                 });
             }
             Stats = result;
